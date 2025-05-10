@@ -5,7 +5,7 @@ echo ===== Uložení přihlašovacích údajů do Git Credential Manager =====
 echo.
 
 REM Nastavení nového tokenu
-set TOKEN=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
+set TOKEN=YOUR_GITHUB_TOKEN_HERE
 
 REM Nastavení nového repozitáře
 echo Nastavuji nový repozitář...

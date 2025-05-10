@@ -31,35 +31,35 @@ if %ERRORLEVEL% EQU 0 (
 ) else (
     echo.
     echo Nahrávání na GitHub selhalo s kódem %ERRORLEVEL%
-    
+
     echo.
     echo Zkouším alternativní metodu s tokenem...
-    
+
     REM Nastavení GitHub tokenu
-    set TOKEN=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
-    
+    set TOKEN=YOUR_GITHUB_TOKEN_HERE
+
     REM Nastavení URL repozitáře s tokenem
     git remote set-url origin https://%TOKEN%@github.com/SpdVpr/longevity2.git
-    
+
     REM Nahrání na GitHub
     git push -u origin main
-    
+
     if %ERRORLEVEL% EQU 0 (
         echo.
         echo Nahrávání na GitHub bylo úspěšné s tokenem!
     ) else (
         echo.
         echo Nahrávání na GitHub selhalo i s tokenem.
-        
+
         echo.
         echo Zkouším třetí metodu s uživatelským jménem a tokenem...
-        
+
         REM Nastavení URL repozitáře s uživatelským jménem a tokenem
         git remote set-url origin https://SpdVpr:%TOKEN%@github.com/SpdVpr/longevity2.git
-        
+
         REM Nahrání na GitHub
         git push -u origin main
-        
+
         if %ERRORLEVEL% EQU 0 (
             echo.
             echo Nahrávání na GitHub bylo úspěšné s uživatelským jménem a tokenem!

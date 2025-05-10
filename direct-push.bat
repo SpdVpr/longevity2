@@ -5,7 +5,7 @@ echo ===== Přímé nahrávání na GitHub =====
 echo.
 
 REM Nastavení GitHub tokenu
-set TOKEN=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
+set TOKEN=YOUR_GITHUB_TOKEN_HERE
 
 REM Nastavení URL repozitáře s uživatelským jménem a tokenem
 git remote set-url origin https://SpdVpr:%TOKEN%@github.com/SpdVpr/longevity.git

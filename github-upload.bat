@@ -5,7 +5,7 @@ echo ===== Nahrávání na GitHub =====
 echo.
 
 REM Nastavení GitHub tokenu
-set TOKEN=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
+set TOKEN=YOUR_GITHUB_TOKEN_HERE
 
 REM Nastavení URL repozitáře s tokenem
 git remote set-url origin https://%TOKEN%@github.com/SpdVpr/longevity.git
@@ -16,7 +16,7 @@ git add .
 
 REM Vytvoření commitu
 echo Vytvářím commit...
-set /p COMMIT_MESSAGE=Zadejte zprávu commitu (nebo stiskněte Enter pro výchozí): 
+set /p COMMIT_MESSAGE=Zadejte zprávu commitu (nebo stiskněte Enter pro výchozí):
 if "%COMMIT_MESSAGE%"=="" set COMMIT_MESSAGE=Update %date% %time%
 git commit -m "%COMMIT_MESSAGE%"
 
@@ -32,11 +32,11 @@ if %ERRORLEVEL% EQU 0 (
     echo.
     echo Nahrávání na GitHub selhalo s kódem %ERRORLEVEL%
     echo Zkouším znovu s jiným formátem URL...
-    
+
     REM Zkusíme jiný formát URL
     git remote set-url origin https://SpdVpr:%TOKEN%@github.com/SpdVpr/longevity.git
     git push -u origin main
-    
+
     if %ERRORLEVEL% EQU 0 (
         echo.
         echo Nahrávání na GitHub bylo úspěšné při druhém pokusu!
