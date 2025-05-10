@@ -1,0 +1,120 @@
+{
+  "navigation": {
+    "home": "Domů",
+    "nutrition": "Výživa",
+    "fitness": "Fitness",
+    "mental_health": "Duševní zdraví",
+    "biomarkers": "Biomarkery",
+    "supplements": "Suplementy",
+    "tools": "Nástroje",
+    "about": "O nás",
+    "contact": "Kontakt",
+    "search": "Hledat články..."
+  },
+  "home": {
+    "hero": {
+      "title": "Žijte déle, žijte lépe",
+      "subtitle": "Vědecky podložené strategie pro dlouhověkost a zdraví",
+      "cta": "Prozkoumat zdroje"
+    },
+    "tools": {
+      "title": "Nástroje pro dlouhověkost",
+      "viewAll": "Zobrazit všechny nástroje",
+      "useTool": "Použít nástroj"
+    },
+    "featured": {
+      "title": "Doporučené články",
+      "viewAll": "Zobrazit všechny články"
+    },
+    "categories": {
+      "title": "Prozkoumat témata",
+      "nutrition": {
+        "title": "Výživa pro dlouhověkost",
+        "description": "Objevte stravovací vzorce a potraviny podporující dlouhověkost"
+      },
+      "fitness": {
+        "title": "Fyzická aktivita a fitness",
+        "description": "Cvičební strategie pro prodloužení zdraví a života"
+      },
+      "mental_health": {
+        "title": "Duševní a kognitivní zdraví",
+        "description": "Optimalizujte zdraví mozku a kognitivní funkce"
+      },
+      "biomarkers": {
+        "title": "Biomarkery a sledování",
+        "description": "Měřte a sledujte svůj biologický věk"
+      },
+      "supplements": {
+        "title": "Suplementy a intervence",
+        "description": "Vědecky podložené doplňky a terapie"
+      }
+    },
+    "newsletter": {
+      "title": "Zůstaňte informováni",
+      "description": "Získejte nejnovější výzkum dlouhověkosti a praktické tipy do vaší e-mailové schránky",
+      "placeholder": "Vaše e-mailová adresa",
+      "button": "Odebírat",
+      "privacy": "Respektujeme vaše soukromí. Odběr můžete kdykoliv zrušit."
+    }
+  },
+  "footer": {
+    "copyright": "© 2025 Longevity Hub. Všechna práva vyhrazena.",
+    "links": {
+      "privacy": "Ochrana osobních údajů",
+      "terms": "Podmínky služby",
+      "contact": "Kontaktujte nás"
+    }
+  },
+  "search": {
+    "title": "Výsledky vyhledávání",
+    "placeholder": "Hledat články...",
+    "button": "Hledat",
+    "noResults": "Žádné výsledky nenalezeny",
+    "noResultsDescription": "Nenašli jsme žádné články odpovídající vašim kritériím vyhledávání.",
+    "tryAgain": "Zkuste použít jiná klíčová slova nebo procházet naše kategorie.",
+    "resultsFound": "Nalezeno {count} {count, plural, one {výsledek} few {výsledky} other {výsledků}}",
+    "categories": "Kategorie",
+    "all": "Vše"
+  },
+  "article": {
+    "readMore": "Číst více",
+    "relatedArticles": "Související články",
+    "tags": "Štítky",
+    "author": "Autor",
+    "publishedOn": "Publikováno",
+    "newsletter": "Newsletter",
+    "newsletterDescription": "Zůstaňte informováni o nejnovějším výzkumu a článcích o dlouhověkosti.",
+    "subscribe": "Odebírat"
+  },
+  "longevityPyramid": {
+    "title": "Pyramida dlouhověkosti",
+    "subtitle": "Klíčové pilíře, které tvoří základ dlouhého a zdravého života",
+    "close": "Zavřít",
+    "levels": {
+      "nutrition": {
+        "title": "Výživa",
+        "description": "Základ dlouhověkosti začíná správnou výživou. Zaměřte se na celé potraviny, rostlinnou stravu, umírněný příjem bílkovin a občasné půsty. To, co jíte, přímo ovlivňuje zdraví vašich buněk a procesy stárnutí."
+      },
+      "exercise": {
+        "title": "Fyzická aktivita",
+        "description": "Pravidelné cvičení je klíčové pro dlouhověkost. Zahrňte kombinaci kardio cvičení, posilování a cvičení flexibility. Cvičení zlepšuje kardiovaskulární zdraví, udržuje svalovou hmotu a podporuje buněčné opravné mechanismy."
+      },
+      "sleep": {
+        "title": "Kvalitní spánek",
+        "description": "Spánek je doba, kdy se vaše tělo opravuje a regeneruje. Snažte se spát 7-8 hodin kvalitního spánku každou noc. Špatný spánek urychluje stárnutí a zvyšuje riziko chronických onemocnění."
+      },
+      "stress": {
+        "title": "Zvládání stresu",
+        "description": "Chronický stres urychluje stárnutí na buněčné úrovni. Zařaďte do svého denního režimu techniky snižování stresu, jako je meditace, hluboké dýchání nebo jóga."
+      },
+      "social": {
+        "title": "Sociální kontakt",
+        "description": "Silné sociální vztahy jsou spojeny s delší délkou života. Udržujte smysluplné vztahy s rodinou, přáteli a komunitou pro podporu emocionální pohody a odolnosti."
+      },
+      "purpose": {
+        "title": "Smysl a účel",
+        "description": "Mít smysl a účel v životě je spojeno s dlouhověkostí. Věnujte se činnostem, které vám dávají pocit naplnění a přispívají k něčemu většímu, než jste vy sami."
+      }
+    }
+  }
+}

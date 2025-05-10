@@ -1,7 +1,30 @@
-import type { NextConfig } from "next";
+import createNextIntlPlugin from 'next-intl/plugin';
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const withNextIntl = createNextIntlPlugin('./app/i18n.ts');
+
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  images: {
+    domains: ['localhost', '127.0.0.1'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '1337',
+        pathname: '/uploads/**',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '1337',
+        pathname: '/uploads/**',
+      },
+    ],
+  },
+  experimental: {
+    serverActions: true,
+  },
 };
 
-export default nextConfig;
+// Export with next-intl plugin
+export default withNextIntl(nextConfig);
