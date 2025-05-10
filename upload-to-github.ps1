@@ -66,13 +66,8 @@ function Set-GitRemote {
     )
 
     try {
-        # Extrahujeme části URL
-        $urlParts = $Url -split "://"
-        $protocol = $urlParts[0]
-        $urlPath = $urlParts[1]
-
-        # Vytvoříme URL s tokenem
-        $tokenUrl = "${protocol}://${Token}@${urlPath}"
+        # Nastavíme vzdálený repozitář s tokenem
+        $tokenUrl = "https://${Token}@github.com/SpdVpr/longevity.git"
 
         # Nastavíme vzdálený repozitář
         git remote set-url origin $tokenUrl
