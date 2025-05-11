@@ -1,5 +1,9 @@
+// This file is used by the next-intl plugin
+const { locales, defaultLocale } = require('./app/config');
+
+/** @type {import('next-intl').NextIntlConfig} */
 module.exports = {
-  locales: ['en', 'cs'],
-  defaultLocale: 'en',
+  locales,
+  defaultLocale,
   localeDetection: true
 };

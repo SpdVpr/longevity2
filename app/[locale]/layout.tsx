@@ -18,8 +18,16 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PreviewBanner from '../components/PreviewBanner';
 import { Providers } from '../providers';
+import { getMessages } from '../messages';
 
-export default function LocaleLayout({
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+  return {
+    title: 'Longevity Hub',
+    description: 'Science-backed strategies for longevity and healthspan',
+  };
+}
+
+export default async function LocaleLayout({
   children,
   params,
 }: {
@@ -29,56 +37,17 @@ export default function LocaleLayout({
   // Get the locale from params
   const locale = params.locale || 'en';
 
-  // Get messages for the current locale
-  let messages = {};
-
-  // Use require instead of dynamic import for server component
-  try {
-    // Load index messages
-    const indexMessages = require(`../../messages/${locale}/index.json`);
-
-    // Try to load research messages
-    try {
-      const researchMessages = require(`../../messages/${locale}/research.json`);
-      // Merge all messages
-      messages = { ...indexMessages, research: researchMessages };
-    } catch (error) {
-      // Fallback to English if research messages for the locale are not found
-      if (locale !== 'en') {
-        try {
-          const researchMessages = require(`../../messages/en/research.json`);
-          messages = { ...indexMessages, research: researchMessages };
-        } catch (innerError) {
-          console.error('Could not load research messages:', innerError);
-          messages = { ...indexMessages };
-        }
-      } else {
-        messages = { ...indexMessages };
-      }
-    }
-  } catch (error) {
-    // Fallback to English if messages for the locale are not found
-    const indexMessages = require(`../../messages/en/index.json`);
-    let researchMessages = {};
-    try {
-      researchMessages = require(`../../messages/en/research.json`);
-    } catch (innerError) {
-      console.error('Could not load English research messages:', innerError);
-    }
-    messages = { ...indexMessages, research: researchMessages };
-  }
+  // Get messages for the current locale using the helper function
+  const messages = await getMessages(locale);
 
   // Preview mode is disabled for now
   const isPreview = false;
 
-  // Use locale directly
-  const finalLocale = locale;
-
   return (
-    <html lang={finalLocale}>
+    <html lang={locale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
-          <NextIntlClientProvider locale={finalLocale} messages={messages}>
+          <NextIntlClientProvider locale={locale} messages={messages}>
             <PreviewBanner isPreview={isPreview} />
             <Header />
             <main>{children}</main>

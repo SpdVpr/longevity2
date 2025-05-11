@@ -2,9 +2,8 @@ import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
-// Import from the new config file
-const i18nConfig = require('./i18n.config');
-const { locales, defaultLocale } = i18nConfig;
+// Import from the app config file
+import { locales, defaultLocale } from './app/config';
 
 // Create the next-intl middleware
 const intlMiddleware = createMiddleware({

@@ -1,7 +1,7 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 
 // Use the specific config file
-const withNextIntl = createNextIntlPlugin('./next-intl.config.mjs');
+const withNextIntl = createNextIntlPlugin('./next-intl.config.js');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
