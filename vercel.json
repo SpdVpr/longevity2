@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "bash ./simple-build.sh",
+  "buildCommand": "mkdir -p .next && bash ./standalone-build.sh",
   "devCommand": "next dev",
   "installCommand": "npm install",
   "framework": "nextjs",
