@@ -3,17 +3,19 @@
 # Záloha původních souborů
 echo "Backing up original files"
 cp package.json package.json.bak
-cp app/globals.css app/globals.css.bak
 
 # Použití minimálních souborů
 echo "Using minimal files"
 cp minimal-package.json package.json
-cp minimal-global.css app/globals.css
+# We're keeping the original globals.css file since we're using Tailwind CSS
 
 # Instalace závislostí
 echo "Installing dependencies"
 npm install
 npm install @auth/prisma-adapter@latest --force
+# Explicitly install TypeScript types
+echo "Installing TypeScript types"
+npm install --save-dev @types/react @types/react-dom @types/node @types/bcrypt
 
 # Generování Prisma klienta
 echo "Generating Prisma client"
@@ -30,7 +32,15 @@ echo "Keeping Tailwind CSS references"
 echo "Building Next.js application"
 npx next build
 
-# Obnovení původních souborů
-echo "Restoring original files"
-mv package.json.bak package.json
-mv app/globals.css.bak app/globals.css
+# Check if build was successful
+if [ -d ".next" ] && [ -f ".next/routes-manifest.json" ]; then
+  echo "Build successful, routes-manifest.json found"
+
+  # Obnovení původních souborů
+  echo "Restoring original files"
+  mv package.json.bak package.json
+else
+  echo "Build failed, routes-manifest.json not found"
+  echo "Keeping modified files for debugging"
+  exit 1
+fi
