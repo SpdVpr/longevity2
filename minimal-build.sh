@@ -28,21 +28,16 @@ npm list @prisma/client @auth/prisma-adapter next-auth react-icons
 # We're now including Tailwind CSS in the dependencies
 echo "Keeping Tailwind CSS references"
 
+# Create symbolic links for components
+echo "Creating symbolic links for components"
+mkdir -p app/components
+cp -r components/* app/components/ || true
+
 # Build Next.js aplikace
 echo "Building Next.js application"
 # Force TypeScript to be ignored during build
 export NEXT_IGNORE_TYPESCRIPT_ERRORS=1
-# Create a temporary tsconfig.build.json that disables type checking
-echo '{
-  "extends": "./tsconfig.json",
-  "compilerOptions": {
-    "noEmit": false,
-    "skipLibCheck": true,
-    "checkJs": false
-  },
-  "exclude": ["node_modules", "**/*.spec.ts", "**/*.test.ts"]
-}' > tsconfig.build.json
-# Use the temporary tsconfig.build.json for the build
+# Use the existing tsconfig.build.json file
 NODE_OPTIONS="--max_old_space_size=4096" npx next build
 
 # Check if build was successful

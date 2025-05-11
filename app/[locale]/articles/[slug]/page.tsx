@@ -7,8 +7,8 @@ import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 
 // Import components
-import Breadcrumbs from '@/app/components/Breadcrumbs';
-import ShareButtons from '@/app/components/ShareButtons';
+import Breadcrumbs from '@/components/Breadcrumbs';
+import ShareButtons from '@/components/ShareButtons';
 
 // Import CMS services
 import { getArticle, getRelated } from '@/lib/cms';
