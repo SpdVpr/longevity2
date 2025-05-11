@@ -18,36 +18,67 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PreviewBanner from '../components/PreviewBanner';
 import { Providers } from '../providers';
-import { getMessages } from '../messages/index';
+import { locales, defaultLocale } from '../../i18n';
 
-export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
+type Props = {
+  children: React.ReactNode;
+  params: { locale: string };
+};
+
+export function generateStaticParams() {
+  return locales.map(locale => ({ locale }));
+}
+
+export async function generateMetadata({ params: { locale } }: Props) {
   return {
     title: 'Longevity Hub',
     description: 'Science-backed strategies for longevity and healthspan',
   };
 }
 
-export default async function LocaleLayout({
-  children,
-  params,
-}: {
-  children: React.ReactNode;
-  params: { locale: string };
-}) {
-  // Get the locale from params
-  const locale = params.locale || 'en';
-
-  // Get messages for the current locale using the helper function
-  const messages = await getMessages(locale);
+export default async function LocaleLayout({ children, params: { locale } }: Props) {
+  // Validate that the incoming locale is valid
+  const isValidLocale = locales.some(l => l === locale);
+  const validLocale = isValidLocale ? locale : defaultLocale;
+  
+  // Load messages
+  let messages;
+  try {
+    messages = (await import(`../../messages/${validLocale}/index.json`)).default;
+    
+    try {
+      const researchMessages = (await import(`../../messages/${validLocale}/research.json`)).default;
+      messages = { ...messages, research: researchMessages };
+    } catch (error) {
+      // Fallback to English for research messages if needed
+      if (validLocale !== defaultLocale) {
+        try {
+          const researchMessages = (await import(`../../messages/${defaultLocale}/research.json`)).default;
+          messages = { ...messages, research: researchMessages };
+        } catch (innerError) {
+          console.error('Could not load research messages:', innerError);
+        }
+      }
+    }
+  } catch (error) {
+    // Fallback to English
+    messages = (await import(`../../messages/${defaultLocale}/index.json`)).default;
+    try {
+      const researchMessages = (await import(`../../messages/${defaultLocale}/research.json`)).default;
+      messages = { ...messages, research: researchMessages };
+    } catch (innerError) {
+      console.error('Could not load English research messages:', innerError);
+    }
+  }
 
   // Preview mode is disabled for now
   const isPreview = false;
 
   return (
-    <html lang={locale}>
+    <html lang={validLocale}>
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
-          <NextIntlClientProvider locale={locale} messages={messages}>
+          <NextIntlClientProvider locale={validLocale} messages={messages}>
             <PreviewBanner isPreview={isPreview} />
             <Header />
             <main>{children}</main>
