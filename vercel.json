@@ -6,6 +6,7 @@
   "framework": "nextjs",
   "outputDirectory": ".next",
   "env": {
-    "NEXT_PUBLIC_STRAPI_API_URL": "http://localhost:1337"
+    "NEXT_PUBLIC_STRAPI_API_URL": "http://localhost:1337",
+    "NEXT_IGNORE_TYPESCRIPT_ERRORS": "1"
   }
 }

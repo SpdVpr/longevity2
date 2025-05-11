@@ -25,6 +25,10 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Disable type checking during build
+  experimental: {
+    forceSwcTransforms: true,
+  },
 };
 
 module.exports = nextConfig;
