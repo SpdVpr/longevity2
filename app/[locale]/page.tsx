@@ -14,9 +14,9 @@ import LongevityPyramid from '../components/LongevityPyramid';
 import ToolsSection from '../components/ToolsSection';
 
 // Import CMS services
-import { getFeatured } from '../app/lib/cms';
-import { formatDate } from '../app/lib/utils';
-import { Article } from '../app/types';
+import { getFeatured } from '../lib/cms';
+import { formatDate } from '../lib/utils';
+import { Article } from '../types';
 
 // No mock data - we'll use only Strapi CMS data
 

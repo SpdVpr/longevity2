@@ -12,6 +12,7 @@
     "generate-prisma": "node scripts/generate-prisma.js"
   },
   "dependencies": {
+    "@auth/prisma-adapter": "^2.9.1",
     "@prisma/client": "^6.7.0",
     "autoprefixer": "^10.4.16",
     "bcrypt": "^5.1.1",
