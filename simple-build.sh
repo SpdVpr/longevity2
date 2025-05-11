@@ -12,6 +12,8 @@ cp -r prisma backup/
 cp package.json backup/
 cp next.config.js backup/
 cp tsconfig.json backup/
+cp middleware.ts backup/ 2>/dev/null || true
+cp next-intl.config.ts backup/ 2>/dev/null || true
 cp .env backup/ 2>/dev/null || true
 cp .env.production backup/ 2>/dev/null || true
 
@@ -24,6 +26,10 @@ rm -rf app
 # Create minimal app structure
 mkdir -p app/api
 mkdir -p app/pages
+
+# Remove middleware.ts if it exists
+rm -f middleware.ts
+rm -f next-intl.config.ts
 
 # Create minimal page.tsx
 cat > app/page.tsx << 'EOL'
@@ -95,7 +101,9 @@ cat > package.json << 'EOL'
   "dependencies": {
     "next": "15.3.1",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react-dom": "^19.0.0",
+    "next-intl": "^4.1.0",
+    "next-auth": "^4.24.5"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -104,6 +112,26 @@ cat > package.json << 'EOL'
     "typescript": "^5"
   }
 }
+EOL
+
+# Create minimal middleware.ts
+cat > middleware.ts << 'EOL'
+import { NextResponse } from 'next/server';
+import type { NextRequest } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+};
+EOL
+
+# Create minimal next-intl.config.ts
+cat > next-intl.config.ts << 'EOL'
+export const locales = ['en', 'cs'];
+export const defaultLocale = 'en';
 EOL
 
 # Create minimal tsconfig.json
@@ -148,7 +176,7 @@ NEXT_IGNORE_TYPESCRIPT_ERRORS=1 npx next build
 # Check if build was successful
 if [ -d ".next" ] && [ -f ".next/routes-manifest.json" ]; then
   echo "Build successful, routes-manifest.json found"
-  
+
   # Restore original files
   echo "Restoring original files"
   rm -rf app
@@ -157,21 +185,25 @@ if [ -d ".next" ] && [ -f ".next/routes-manifest.json" ]; then
   rm package.json
   rm next.config.js
   rm tsconfig.json
+  rm middleware.ts 2>/dev/null || true
+  rm next-intl.config.ts 2>/dev/null || true
   rm .env 2>/dev/null || true
   rm .env.production 2>/dev/null || true
-  
+
   cp -r backup/app ./
   cp -r backup/public ./ 2>/dev/null || true
   cp -r backup/prisma ./ 2>/dev/null || true
   cp backup/package.json ./
   cp backup/next.config.js ./
   cp backup/tsconfig.json ./
+  cp backup/middleware.ts ./ 2>/dev/null || true
+  cp backup/next-intl.config.ts ./ 2>/dev/null || true
   cp backup/.env ./ 2>/dev/null || true
   cp backup/.env.production ./ 2>/dev/null || true
-  
+
   # Clean up backup directory
   rm -rf backup
-  
+
   exit 0
 else
   echo "Build failed, routes-manifest.json not found"
