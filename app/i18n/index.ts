@@ -1,7 +1,5 @@
 import {getRequestConfig} from 'next-intl/server';
-
-export const locales = ['en', 'cs'];
-export const defaultLocale = 'en';
+import {locales, defaultLocale} from './config';
 
 export default getRequestConfig(async ({locale}) => {
   // Validate that the incoming locale is valid
@@ -15,7 +13,7 @@ export default getRequestConfig(async ({locale}) => {
   try {
     // Load index messages
     const indexMessages = await import(`../../messages/${safeLocale}/index.json`);
-    
+
     // Try to load research messages
     try {
       const researchMessages = await import(`../../messages/${safeLocale}/research.json`);
