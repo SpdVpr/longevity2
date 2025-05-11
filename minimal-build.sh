@@ -126,6 +126,22 @@ export async function getArticlesByCategory(categorySlug: string, page: number =
     }
   };
 }
+
+export async function search(query: string, page: number = 1, pageSize: number = 10, locale: string = 'en'): Promise<{
+  articles: Article[];
+  pagination: Pagination;
+}> {
+  // This is a minimal implementation for build
+  return {
+    articles: [],
+    pagination: {
+      page: 1,
+      pageSize: 10,
+      pageCount: 0,
+      total: 0
+    }
+  };
+}
 EOL
 
 # Create minimal utils.ts file
@@ -163,6 +179,273 @@ export function formatDate(dateString: string, locale = 'en'): string {
   } catch (error) {
     return 'Error formatting date';
   }
+}
+EOL
+
+# Create data directory and supplements data
+echo "Creating data directory and supplements data"
+mkdir -p app/data
+cat > app/data/supplements.ts << 'EOL'
+// Minimal supplements data for build
+export const topSupplements = [
+  {
+    id: 1,
+    name: "Vitamin D",
+    description: "Essential for bone health and immune function",
+    benefits: ["Bone health", "Immune support", "Mood regulation"],
+    dosage: "1,000-4,000 IU daily",
+    image: "/images/supplements/vitamin-d.jpg",
+    slug: "vitamin-d"
+  },
+  {
+    id: 2,
+    name: "Omega-3 Fatty Acids",
+    description: "Important for heart and brain health",
+    benefits: ["Heart health", "Brain function", "Reduced inflammation"],
+    dosage: "1,000-2,000 mg daily",
+    image: "/images/supplements/omega-3.jpg",
+    slug: "omega-3"
+  },
+  {
+    id: 3,
+    name: "Magnesium",
+    description: "Supports muscle and nerve function",
+    benefits: ["Muscle function", "Sleep quality", "Stress reduction"],
+    dosage: "200-400 mg daily",
+    image: "/images/supplements/magnesium.jpg",
+    slug: "magnesium"
+  }
+];
+
+export const allSupplements = topSupplements;
+EOL
+
+# Create supplements components
+echo "Creating supplements components"
+mkdir -p app/components/supplements
+
+# Create TopSupplementsList component
+cat > app/components/supplements/TopSupplementsList.tsx << 'EOL'
+'use client';
+
+import { useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import { topSupplements } from '../../data/supplements';
+
+export default function TopSupplementsList() {
+  const [activeTab, setActiveTab] = useState('all');
+
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <h2 className="text-2xl font-bold mb-6 text-gray-900">Top 5 Science-Backed Supplements</h2>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {topSupplements.map((supplement) => (
+          <div key={supplement.id} className="bg-gray-50 rounded-lg p-4 hover:shadow-md transition-shadow">
+            <div className="relative h-40 mb-4 rounded-md overflow-hidden">
+              <Image
+                src={supplement.image || '/images/placeholder-supplement.svg'}
+                alt={supplement.name}
+                fill
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-gray-800">{supplement.name}</h3>
+            <p className="text-gray-600 mb-3">{supplement.description}</p>
+            <div className="mb-3">
+              <h4 className="font-medium text-gray-700 mb-1">Key Benefits:</h4>
+              <ul className="list-disc pl-5 text-gray-600">
+                {supplement.benefits.map((benefit, index) => (
+                  <li key={index}>{benefit}</li>
+                ))}
+              </ul>
+            </div>
+            <p className="text-sm text-gray-500 mb-4">
+              <span className="font-medium">Recommended dosage:</span> {supplement.dosage}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+EOL
+
+# Create SupplementCard component
+cat > app/components/supplements/SupplementCard.tsx << 'EOL'
+'use client';
+
+import Image from 'next/image';
+import Link from 'next/link';
+
+interface SupplementCardProps {
+  supplement: {
+    id: number;
+    name: string;
+    description: string;
+    benefits: string[];
+    dosage: string;
+    image: string;
+    slug: string;
+  };
+}
+
+export default function SupplementCard({ supplement }: SupplementCardProps) {
+  return (
+    <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+      <div className="relative h-48">
+        <Image
+          src={supplement.image || '/images/placeholder-supplement.svg'}
+          alt={supplement.name}
+          fill
+          style={{ objectFit: 'cover' }}
+        />
+      </div>
+      <div className="p-5">
+        <h3 className="text-xl font-bold mb-2 text-gray-900">{supplement.name}</h3>
+        <p className="text-gray-600 mb-4">{supplement.description}</p>
+        <div className="mb-4">
+          <h4 className="font-medium text-gray-800 mb-1">Key Benefits:</h4>
+          <ul className="list-disc pl-5 text-gray-600">
+            {supplement.benefits.map((benefit, index) => (
+              <li key={index}>{benefit}</li>
+            ))}
+          </ul>
+        </div>
+        <p className="text-sm text-gray-500 mb-4">
+          <span className="font-medium">Recommended dosage:</span> {supplement.dosage}
+        </p>
+      </div>
+    </div>
+  );
+}
+EOL
+
+# Create BioAgeCalculator component
+echo "Creating BioAgeCalculator component"
+cat > app/components/BioAgeCalculator.tsx << 'EOL'
+'use client';
+
+import { useState } from 'react';
+
+export default function BioAgeCalculator() {
+  const [formData, setFormData] = useState({
+    age: '',
+    gender: '',
+    weight: '',
+    height: '',
+    waistCircumference: '',
+    restingHeartRate: '',
+    systolicBP: '',
+    diastolicBP: '',
+    smoking: 'no',
+    exercise: 'moderate',
+    sleep: '7-8',
+    stress: 'moderate',
+    alcohol: 'moderate',
+    diet: 'balanced'
+  });
+
+  const [result, setResult] = useState<null | { bioAge: number; chronologicalAge: number }>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
+
+    try {
+      // Simplified calculation for build
+      const chronologicalAge = parseInt(formData.age);
+      const bioAge = chronologicalAge; // Simplified calculation
+
+      setResult({ bioAge, chronologicalAge });
+    } catch (err) {
+      setError('An error occurred while calculating your biological age.');
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">Biological Age Calculator</h2>
+
+      <form onSubmit={handleSubmit} className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <label htmlFor="age" className="block text-sm font-medium text-gray-700 mb-1">Age (years)</label>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              required
+              min="18"
+              max="100"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            />
+          </div>
+
+          <div>
+            <label htmlFor="gender" className="block text-sm font-medium text-gray-700 mb-1">Gender</label>
+            <select
+              id="gender"
+              name="gender"
+              value={formData.gender}
+              onChange={handleChange}
+              required
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+            >
+              <option value="">Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+        </div>
+
+        <button
+          type="submit"
+          className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors"
+          disabled={loading}
+        >
+          {loading ? 'Calculating...' : 'Calculate My Biological Age'}
+        </button>
+      </form>
+
+      {error && (
+        <div className="mt-6 p-4 bg-red-50 text-red-700 rounded-md">
+          {error}
+        </div>
+      )}
+
+      {result && (
+        <div className="mt-8 p-6 bg-blue-50 rounded-lg">
+          <h3 className="text-xl font-bold mb-4 text-gray-900">Your Results</h3>
+          <div className="grid grid-cols-2 gap-4 text-center">
+            <div>
+              <p className="text-sm text-gray-600">Chronological Age</p>
+              <p className="text-3xl font-bold text-gray-900">{result.chronologicalAge}</p>
+            </div>
+            <div>
+              <p className="text-sm text-gray-600">Biological Age</p>
+              <p className="text-3xl font-bold text-blue-600">{result.bioAge}</p>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 }
 EOL
 

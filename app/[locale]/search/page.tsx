@@ -5,9 +5,9 @@ import { useParams, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import { getArticles, search as searchArticles } from '@/lib/cms';
-import { formatDate } from '@/lib/utils';
-import { Article } from '@/types';
+import { getArticles, search as searchArticles } from '../../../lib/cms';
+import { formatDate } from '../../../lib/utils';
+import { Article } from '../../../types';
 
 // Mock data for fallback when CMS is not available
 const mockArticles = [
