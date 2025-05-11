@@ -4,8 +4,8 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import HealthyHabitsChecklist from '@/app/components/HealthyHabitsChecklist';
-import Breadcrumbs from '@/app/components/Breadcrumbs';
+import HealthyHabitsChecklist from '../../../../components/HealthyHabitsChecklist';
+import Breadcrumbs from '../../../../components/Breadcrumbs';
 
 export default function HealthyHabitsChecklistPage() {
   const params = useParams();

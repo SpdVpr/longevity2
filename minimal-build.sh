@@ -36,7 +36,7 @@ mkdir -p app/components
 
 # Create Breadcrumbs component
 echo "Creating Breadcrumbs component"
-cat > app/components/Breadcrumbs.tsx << 'EOL'
+cat > app/app/components/Breadcrumbs.tsx << 'EOL'
 'use client';
 
 import Link from 'next/link';
@@ -72,11 +72,11 @@ EOL
 
 # Create lib directory
 echo "Creating lib directory"
-mkdir -p app/lib
+mkdir -p app/app/lib
 
 # Create minimal cms.ts file
 echo "Creating minimal cms.ts file"
-cat > app/lib/cms.ts << 'EOL'
+cat > app/app/lib/cms.ts << 'EOL'
 // Minimal CMS implementation for build
 import { Article, Category, Pagination } from '../types';
 
@@ -146,7 +146,7 @@ EOL
 
 # Create minimal utils.ts file
 echo "Creating minimal utils.ts file"
-cat > app/lib/utils.ts << 'EOL'
+cat > app/app/lib/utils.ts << 'EOL'
 // Minimal utils implementation for build
 
 /**
@@ -184,8 +184,8 @@ EOL
 
 # Create data directory and supplements data
 echo "Creating data directory and supplements data"
-mkdir -p app/data
-cat > app/data/supplements.ts << 'EOL'
+mkdir -p app/app/data
+cat > app/app/data/supplements.ts << 'EOL'
 // Minimal supplements data for build
 export const topSupplements = [
   {
@@ -222,10 +222,10 @@ EOL
 
 # Create supplements components
 echo "Creating supplements components"
-mkdir -p app/components/supplements
+mkdir -p app/app/components/supplements
 
 # Create TopSupplementsList component
-cat > app/components/supplements/TopSupplementsList.tsx << 'EOL'
+cat > app/app/components/supplements/TopSupplementsList.tsx << 'EOL'
 'use client';
 
 import { useState } from 'react';
@@ -273,7 +273,7 @@ export default function TopSupplementsList() {
 EOL
 
 # Create SupplementCard component
-cat > app/components/supplements/SupplementCard.tsx << 'EOL'
+cat > app/app/components/supplements/SupplementCard.tsx << 'EOL'
 'use client';
 
 import Image from 'next/image';
@@ -324,7 +324,7 @@ EOL
 
 # Create BodyCompositionCalculator component
 echo "Creating BodyCompositionCalculator component"
-cat > app/components/BodyCompositionCalculator.tsx << 'EOL'
+cat > app/app/components/BodyCompositionCalculator.tsx << 'EOL'
 'use client';
 
 import { useState } from 'react';
@@ -483,7 +483,7 @@ EOL
 
 # Create CaloricNeedsCalculator component
 echo "Creating CaloricNeedsCalculator component"
-cat > app/components/CaloricNeedsCalculator.tsx << 'EOL'
+cat > app/app/components/CaloricNeedsCalculator.tsx << 'EOL'
 'use client';
 
 import { useState } from 'react';
@@ -744,9 +744,182 @@ export default function CaloricNeedsCalculator() {
 }
 EOL
 
+# Create HealthyHabitsChecklist component
+echo "Creating HealthyHabitsChecklist component"
+cat > app/app/components/HealthyHabitsChecklist.tsx << 'EOL'
+'use client';
+
+import { useState } from 'react';
+
+interface Habit {
+  id: string;
+  category: string;
+  title: string;
+  description: string;
+  impact: 'high' | 'medium' | 'low';
+}
+
+export default function HealthyHabitsChecklist() {
+  const [completedHabits, setCompletedHabits] = useState<string[]>([]);
+
+  const habits: Habit[] = [
+    {
+      id: 'sleep-7-9',
+      category: 'Sleep',
+      title: 'Sleep 7-9 hours per night',
+      description: 'Consistent quality sleep is essential for cellular repair, hormone regulation, and cognitive function.',
+      impact: 'high'
+    },
+    {
+      id: 'exercise-150',
+      category: 'Exercise',
+      title: '150+ minutes of moderate exercise weekly',
+      description: 'Regular physical activity improves cardiovascular health, muscle strength, and metabolic function.',
+      impact: 'high'
+    },
+    {
+      id: 'strength-2x',
+      category: 'Exercise',
+      title: 'Strength training 2x per week',
+      description: 'Resistance training preserves muscle mass, supports metabolism, and improves functional capacity.',
+      impact: 'medium'
+    },
+    {
+      id: 'vegetables-5',
+      category: 'Nutrition',
+      title: 'Eat 5+ servings of vegetables daily',
+      description: 'Vegetables provide essential nutrients, fiber, and phytochemicals that support cellular health.',
+      impact: 'high'
+    },
+    {
+      id: 'protein-adequate',
+      category: 'Nutrition',
+      title: 'Consume adequate protein (1.2-2.0g/kg)',
+      description: 'Sufficient protein intake supports muscle maintenance, immune function, and cellular repair.',
+      impact: 'medium'
+    }
+  ];
+
+  const toggleHabit = (habitId: string) => {
+    setCompletedHabits(prev =>
+      prev.includes(habitId)
+        ? prev.filter(id => id !== habitId)
+        : [...prev, habitId]
+    );
+  };
+
+  const calculateScore = () => {
+    let score = 0;
+
+    completedHabits.forEach(habitId => {
+      const habit = habits.find(h => h.id === habitId);
+      if (habit) {
+        if (habit.impact === 'high') score += 3;
+        else if (habit.impact === 'medium') score += 2;
+        else score += 1;
+      }
+    });
+
+    return score;
+  };
+
+  const getScoreMessage = () => {
+    const score = calculateScore();
+    const maxScore = habits.reduce((acc, habit) => {
+      if (habit.impact === 'high') return acc + 3;
+      else if (habit.impact === 'medium') return acc + 2;
+      else return acc + 1;
+    }, 0);
+
+    const percentage = (score / maxScore) * 100;
+
+    if (percentage >= 80) return 'Excellent! You're following most key longevity habits.';
+    else if (percentage >= 60) return 'Good progress! You're on the right track.';
+    else if (percentage >= 40) return 'Getting started! Focus on high-impact habits first.';
+    else return 'There's room for improvement. Start with one new habit this week.';
+  };
+
+  return (
+    <div className="bg-white rounded-lg shadow-md p-6">
+      <h2 className="text-2xl font-bold mb-6 text-center text-gray-900">Healthy Habits Checklist</h2>
+
+      <div className="mb-8">
+        <p className="text-gray-600 mb-4">
+          Track your progress with these evidence-based habits that support longevity and healthspan.
+          Check the habits you consistently follow (at least 80% of the time).
+        </p>
+      </div>
+
+      <div className="space-y-6 mb-8">
+        {habits.map(habit => (
+          <div
+            key={habit.id}
+            className={`p-4 rounded-lg border transition-colors ${
+              completedHabits.includes(habit.id)
+                ? 'border-green-500 bg-green-50'
+                : 'border-gray-200 hover:border-blue-300'
+            }`}
+          >
+            <div className="flex items-start">
+              <div className="flex-shrink-0 mt-0.5">
+                <button
+                  onClick={() => toggleHabit(habit.id)}
+                  className={`w-6 h-6 rounded border flex items-center justify-center transition-colors ${
+                    completedHabits.includes(habit.id)
+                      ? 'bg-green-500 border-green-500 text-white'
+                      : 'border-gray-300'
+                  }`}
+                  aria-label={`Toggle ${habit.title}`}
+                >
+                  {completedHabits.includes(habit.id) && (
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+              <div className="ml-3 flex-1">
+                <div className="flex justify-between">
+                  <h3 className="text-lg font-medium text-gray-900">{habit.title}</h3>
+                  <span className={`text-xs font-medium px-2 py-1 rounded-full ${
+                    habit.impact === 'high'
+                      ? 'bg-blue-100 text-blue-800'
+                      : habit.impact === 'medium'
+                        ? 'bg-purple-100 text-purple-800'
+                        : 'bg-gray-100 text-gray-800'
+                  }`}>
+                    {habit.impact.charAt(0).toUpperCase() + habit.impact.slice(1)} Impact
+                  </span>
+                </div>
+                <p className="mt-1 text-sm text-gray-600">{habit.description}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <h3 className="text-xl font-semibold mb-2 text-gray-900">Your Habits Score</h3>
+        <div className="flex items-center justify-between mb-2">
+          <span className="text-gray-600">Progress</span>
+          <span className="text-gray-900 font-medium">{calculateScore()} points</span>
+        </div>
+        <div className="w-full bg-gray-200 rounded-full h-2.5 mb-4">
+          <div
+            className="bg-blue-600 h-2.5 rounded-full"
+            style={{ width: `${Math.min(100, (calculateScore() / (habits.length * 3)) * 100)}%` }}
+          ></div>
+        </div>
+        <p className="text-gray-700">{getScoreMessage()}</p>
+      </div>
+    </div>
+  );
+}
+EOL
+
 # Create BioAgeCalculator component
 echo "Creating BioAgeCalculator component"
-cat > app/components/BioAgeCalculator.tsx << 'EOL'
+cat > app/app/components/BioAgeCalculator.tsx << 'EOL'
 'use client';
 
 import { useState } from 'react';
@@ -873,8 +1046,8 @@ EOL
 
 # Create types file
 echo "Creating types file"
-mkdir -p app/types
-cat > app/types/index.ts << 'EOL'
+mkdir -p app/app/types
+cat > app/app/types/index.ts << 'EOL'
 export interface Category {
   id: number | string;
   name: string;
@@ -986,7 +1159,7 @@ done
 
 # Create ShareButtons component
 echo "Creating ShareButtons component"
-cat > app/components/ShareButtons.tsx << 'EOL'
+cat > app/app/components/ShareButtons.tsx << 'EOL'
 'use client';
 
 interface ShareButtonsProps {
