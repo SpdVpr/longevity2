@@ -18,7 +18,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PreviewBanner from '../components/PreviewBanner';
 import { Providers } from '../providers';
-import { getMessages } from '../messages';
+import { getMessages } from '../messages/index';
 
 export async function generateMetadata({ params: { locale } }: { params: { locale: string } }) {
   return {
