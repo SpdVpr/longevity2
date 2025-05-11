@@ -18,7 +18,9 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PreviewBanner from '../components/PreviewBanner';
 import { Providers } from '../providers';
-import { locales, defaultLocale } from '../../i18n';
+import i18nConfig from '../../i18n.config';
+const locales = i18nConfig.locales;
+const defaultLocale = i18nConfig.defaultLocale;
 
 type Props = {
   children: React.ReactNode;
