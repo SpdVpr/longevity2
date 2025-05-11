@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "buildCommand": "prisma generate && next build",
+  "buildCommand": "bash ./build.sh",
   "devCommand": "next dev",
-  "installCommand": "npm install && prisma generate",
+  "installCommand": "npm install",
   "framework": "nextjs",
   "outputDirectory": ".next",
   "env": {
