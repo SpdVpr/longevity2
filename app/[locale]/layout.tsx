@@ -18,7 +18,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PreviewBanner from '../components/PreviewBanner';
 import { Providers } from '../providers';
-import { locales, defaultLocale } from '../../next-intl.config.mjs';
+import { locales, defaultLocale } from '../../i18n';
 
 type Props = {
   children: React.ReactNode;
