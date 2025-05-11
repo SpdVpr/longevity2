@@ -1,11 +1,10 @@
 'use client';
 
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 export default function AboutPage() {
-  const params = useParams();
-  const locale = params.locale as string;
+  const t = useTranslations('about');
 
   return (
     <>
@@ -15,7 +14,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 z-0 opacity-50">
           <Image
             src="/images/placeholder-article.svg"
-            alt="About Longevity Hub"
+            alt={t('hero.title')}
             fill
             priority
             style={{ objectFit: 'cover', objectPosition: 'center 17%' }}
@@ -25,10 +24,10 @@ export default function AboutPage() {
 
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-shadow max-w-4xl mx-auto">
-            About Longevity Hub
+            {t('hero.title')}
           </h1>
           <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-shadow">
-            Our mission is to provide evidence-based information on longevity and healthy aging
+            {t('hero.subtitle')}
           </p>
         </div>
       </div>
@@ -38,15 +37,15 @@ export default function AboutPage() {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center mb-16">
             <div>
-              <h2 className="text-3xl font-bold mb-6">Our Story</h2>
+              <h2 className="text-3xl font-bold mb-6">{t('story.title')}</h2>
               <p className="text-gray-600 mb-4">
-                Longevity Hub was founded in 2025 with a simple mission: to make the science of longevity accessible to everyone. We believe that the latest research on extending healthspan and lifespan should not be confined to academic journals or exclusive conferences.
+                {t('story.paragraph1')}
               </p>
               <p className="text-gray-600 mb-4">
-                Our team of scientists, health professionals, and science communicators work together to translate complex research into practical, actionable information that anyone can use to optimize their health and potentially extend their lifespan.
+                {t('story.paragraph2')}
               </p>
               <p className="text-gray-600">
-                We are committed to scientific accuracy, transparency, and a balanced approach that acknowledges both the promise and limitations of longevity science.
+                {t('story.paragraph3')}
               </p>
             </div>
             <div className="relative h-96 rounded-lg overflow-hidden shadow-xl">
@@ -60,7 +59,7 @@ export default function AboutPage() {
           </div>
 
           <div className="mb-16">
-            <h2 className="text-3xl font-bold mb-6 text-center">Our Values</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center">{t('values.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <div className="bg-white p-8 rounded-lg shadow-md">
                 <div className="bg-blue-100 text-blue-600 w-12 h-12 rounded-full flex items-center justify-center mb-4">
@@ -68,9 +67,9 @@ export default function AboutPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold mb-2">Evidence-Based</h3>
+                <h3 className="text-xl font-bold mb-2">{t('values.evidenceBased.title')}</h3>
                 <p className="text-gray-600">
-                  We prioritize scientific evidence and rigorous research. All our content is backed by peer-reviewed studies and expert consensus.
+                  {t('values.evidenceBased.description')}
                 </p>
               </div>
 
@@ -80,9 +79,9 @@ export default function AboutPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold mb-2">Practical Application</h3>
+                <h3 className="text-xl font-bold mb-2">{t('values.practical.title')}</h3>
                 <p className="text-gray-600">
-                  We translate complex science into actionable strategies that can be implemented in everyday life.
+                  {t('values.practical.description')}
                 </p>
               </div>
 
@@ -92,31 +91,31 @@ export default function AboutPage() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
                   </svg>
                 </div>
-                <h3 className="text-xl font-bold mb-2">Personalization</h3>
+                <h3 className="text-xl font-bold mb-2">{t('values.personalization.title')}</h3>
                 <p className="text-gray-600">
-                  We recognize that there is no one-size-fits-all approach to longevity and provide tools for personalized optimization.
+                  {t('values.personalization.description')}
                 </p>
               </div>
             </div>
           </div>
 
           <div>
-            <h2 className="text-3xl font-bold mb-6 text-center">Our Team</h2>
+            <h2 className="text-3xl font-bold mb-6 text-center">{t('team.title')}</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
               {/* Team Member 1 */}
               <div className="text-center">
                 <div className="relative w-48 h-48 mx-auto rounded-full overflow-hidden mb-4">
                   <Image
                     src="/images/placeholder-article.svg"
-                    alt="Team Member"
+                    alt={t('team.members.jane.name')}
                     fill
                     style={{ objectFit: 'cover' }}
                   />
                 </div>
-                <h3 className="text-xl font-bold">Dr. Jane Smith</h3>
-                <p className="text-blue-600 mb-2">Founder & Chief Science Officer</p>
+                <h3 className="text-xl font-bold">{t('team.members.jane.name')}</h3>
+                <p className="text-blue-600 mb-2">{t('team.members.jane.role')}</p>
                 <p className="text-gray-600 text-sm">
-                  PhD in Molecular Biology with 15+ years of research experience in aging mechanisms.
+                  {t('team.members.jane.bio')}
                 </p>
               </div>
 
@@ -125,15 +124,15 @@ export default function AboutPage() {
                 <div className="relative w-48 h-48 mx-auto rounded-full overflow-hidden mb-4">
                   <Image
                     src="/images/placeholder-article.svg"
-                    alt="Team Member"
+                    alt={t('team.members.michael.name')}
                     fill
                     style={{ objectFit: 'cover' }}
                   />
                 </div>
-                <h3 className="text-xl font-bold">Dr. Michael Johnson</h3>
-                <p className="text-blue-600 mb-2">Medical Director</p>
+                <h3 className="text-xl font-bold">{t('team.members.michael.name')}</h3>
+                <p className="text-blue-600 mb-2">{t('team.members.michael.role')}</p>
                 <p className="text-gray-600 text-sm">
-                  Board-certified physician specializing in preventive medicine and longevity.
+                  {t('team.members.michael.bio')}
                 </p>
               </div>
 
@@ -142,15 +141,15 @@ export default function AboutPage() {
                 <div className="relative w-48 h-48 mx-auto rounded-full overflow-hidden mb-4">
                   <Image
                     src="/images/placeholder-article.svg"
-                    alt="Team Member"
+                    alt={t('team.members.sarah.name')}
                     fill
                     style={{ objectFit: 'cover' }}
                   />
                 </div>
-                <h3 className="text-xl font-bold">Sarah Williams</h3>
-                <p className="text-blue-600 mb-2">Head of Content</p>
+                <h3 className="text-xl font-bold">{t('team.members.sarah.name')}</h3>
+                <p className="text-blue-600 mb-2">{t('team.members.sarah.role')}</p>
                 <p className="text-gray-600 text-sm">
-                  Science journalist with expertise in translating complex research for general audiences.
+                  {t('team.members.sarah.bio')}
                 </p>
               </div>
 
@@ -159,15 +158,15 @@ export default function AboutPage() {
                 <div className="relative w-48 h-48 mx-auto rounded-full overflow-hidden mb-4">
                   <Image
                     src="/images/placeholder-article.svg"
-                    alt="Team Member"
+                    alt={t('team.members.david.name')}
                     fill
                     style={{ objectFit: 'cover' }}
                   />
                 </div>
-                <h3 className="text-xl font-bold">David Chen</h3>
-                <p className="text-blue-600 mb-2">Technology Director</p>
+                <h3 className="text-xl font-bold">{t('team.members.david.name')}</h3>
+                <p className="text-blue-600 mb-2">{t('team.members.david.role')}</p>
                 <p className="text-gray-600 text-sm">
-                  Software engineer focused on creating interactive tools for health optimization.
+                  {t('team.members.david.bio')}
                 </p>
               </div>
             </div>

@@ -1,0 +1,52 @@
+{
+  "hero": {
+    "title": "CZ: About Longevity Hub",
+    "subtitle": "CZ: Our mission is to provide evidence-based information on longevity and healthy aging"
+  },
+  "story": {
+    "title": "CZ: Our Story",
+    "paragraph1": "CZ: Longevity Hub was founded in 2025 with a simple mission: to make the science of longevity accessible to everyone. We believe that the latest research on extending healthspan and lifespan should not be confined to academic journals or exclusive conferences.",
+    "paragraph2": "CZ: Our team of scientists, health professionals, and science communicators work together to translate complex research into practical, actionable information that anyone can use to optimize their health and potentially extend their lifespan.",
+    "paragraph3": "CZ: We are committed to scientific accuracy, transparency, and a balanced approach that acknowledges both the promise and limitations of longevity science."
+  },
+  "values": {
+    "title": "CZ: Our Values",
+    "evidenceBased": {
+      "title": "CZ: Evidence-Based",
+      "description": "CZ: We prioritize scientific evidence and rigorous research. All our content is backed by peer-reviewed studies and expert consensus."
+    },
+    "practical": {
+      "title": "CZ: Practical Application",
+      "description": "CZ: We translate complex science into actionable strategies that can be implemented in everyday life."
+    },
+    "personalization": {
+      "title": "CZ: Personalization",
+      "description": "CZ: We recognize that there is no one-size-fits-all approach to longevity and provide tools for personalized optimization."
+    }
+  },
+  "team": {
+    "title": "CZ: Our Team",
+    "members": {
+      "jane": {
+        "name": "CZ: Dr. Jane Smith",
+        "role": "CZ: Founder & Chief Science Officer",
+        "bio": "CZ: PhD in Molecular Biology with 15+ years of research experience in aging mechanisms."
+      },
+      "michael": {
+        "name": "CZ: Dr. Michael Johnson",
+        "role": "CZ: Medical Director",
+        "bio": "CZ: Board-certified physician specializing in preventive medicine and longevity."
+      },
+      "sarah": {
+        "name": "CZ: Sarah Williams",
+        "role": "CZ: Head of Content",
+        "bio": "CZ: Science journalist with expertise in translating complex research for general audiences."
+      },
+      "david": {
+        "name": "CZ: David Chen",
+        "role": "CZ: Technology Director",
+        "bio": "CZ: Software engineer focused on creating interactive tools for health optimization."
+      }
+    }
+  }
+}
