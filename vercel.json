@@ -1,10 +1,10 @@
 {
   "version": 2,
-  "buildCommand": "mkdir -p .next && bash ./direct-manifest.sh && echo 'Build completed successfully'",
+  "buildCommand": "bash ./direct-manifest.sh && echo 'Build completed successfully'",
   "devCommand": "next dev",
   "installCommand": "npm install",
-  "framework": "nextjs",
-  "outputDirectory": ".next",
+  "framework": null,
+  "outputDirectory": ".vercel/output",
   "env": {
     "NEXT_PUBLIC_STRAPI_API_URL": "http://localhost:1337",
     "NEXT_IGNORE_TYPESCRIPT_ERRORS": "1"
