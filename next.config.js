@@ -17,10 +17,6 @@ const nextConfig = {
       },
     ],
   },
-  experimental: {
-    serverActions: false,
-    tailwindcss: false,
-  },
   // Vypnout kontrolu ESLint při buildu
   eslint: {
     ignoreDuringBuilds: true,

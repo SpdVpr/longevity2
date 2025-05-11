@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "bash ./vercel-build.sh",
+  "buildCommand": "bash ./minimal-build.sh",
   "devCommand": "next dev",
   "installCommand": "npm install",
   "framework": "nextjs",
