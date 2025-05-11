@@ -1,7 +1,7 @@
 import createNextIntlPlugin from 'next-intl/plugin';
 
-// Use the i18n.ts file
-const withNextIntl = createNextIntlPlugin('./i18n.ts');
+// Use the messages.js file
+const withNextIntl = createNextIntlPlugin('./messages.js');
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
