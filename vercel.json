@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "buildCommand": "bash ./direct-manifest.sh",
+  "buildCommand": "mkdir -p .next && bash ./direct-manifest.sh && echo 'Build completed successfully'",
   "devCommand": "next dev",
   "installCommand": "npm install",
   "framework": "nextjs",
