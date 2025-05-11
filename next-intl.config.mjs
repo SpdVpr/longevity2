@@ -1,7 +1,10 @@
 /** @type {import('next-intl').NextIntlConfig} */
+export const locales = ['en', 'cs'];
+export const defaultLocale = 'en';
+
 const config = {
-  locales: ['en', 'cs'],
-  defaultLocale: 'en',
+  locales,
+  defaultLocale,
   localeDetection: true
 };
 
