@@ -110,6 +110,22 @@ export async function getRelated(articleId: string, categorySlug: string, limit:
   // This is a minimal implementation for build
   return [];
 }
+
+export async function getArticlesByCategory(categorySlug: string, page: number = 1, pageSize: number = 10, locale: string = 'en'): Promise<{
+  articles: Article[];
+  pagination: Pagination;
+}> {
+  // This is a minimal implementation for build
+  return {
+    articles: [],
+    pagination: {
+      page: 1,
+      pageSize: 10,
+      pageCount: 0,
+      total: 0
+    }
+  };
+}
 EOL
 
 # Create minimal utils.ts file
@@ -182,6 +198,86 @@ export interface Pagination {
   total: number;
 }
 EOL
+
+# Update imports in all pages
+echo "Updating imports in all pages"
+
+# Update main page
+if [ -f "app/[locale]/page.tsx" ]; then
+  echo "Updating main page imports"
+  sed -i 's|@/lib/cms|../lib/cms|g' app/[locale]/page.tsx
+  sed -i 's|@/lib/utils|../lib/utils|g' app/[locale]/page.tsx
+  sed -i 's|@/types|../types|g' app/[locale]/page.tsx
+  sed -i 's|@/components|../components|g' app/[locale]/page.tsx
+fi
+
+# Update biomarkers page
+if [ -f "app/[locale]/biomarkers/page.tsx" ]; then
+  echo "Updating biomarkers page imports"
+  sed -i 's|@/lib/cms|../../../lib/cms|g' app/[locale]/biomarkers/page.tsx
+  sed -i 's|@/lib/utils|../../../lib/utils|g' app/[locale]/biomarkers/page.tsx
+  sed -i 's|@/types|../../../types|g' app/[locale]/biomarkers/page.tsx
+fi
+
+# Update fitness page
+if [ -f "app/[locale]/fitness/page.tsx" ]; then
+  echo "Updating fitness page imports"
+  sed -i 's|@/lib/cms|../../../lib/cms|g' app/[locale]/fitness/page.tsx
+  sed -i 's|@/lib/utils|../../../lib/utils|g' app/[locale]/fitness/page.tsx
+  sed -i 's|@/types|../../../types|g' app/[locale]/fitness/page.tsx
+fi
+
+# Update mental-health page
+if [ -f "app/[locale]/mental-health/page.tsx" ]; then
+  echo "Updating mental-health page imports"
+  sed -i 's|@/lib/cms|../../../lib/cms|g' app/[locale]/mental-health/page.tsx
+  sed -i 's|@/lib/utils|../../../lib/utils|g' app/[locale]/mental-health/page.tsx
+  sed -i 's|@/types|../../../types|g' app/[locale]/mental-health/page.tsx
+fi
+
+# Update nutrition page
+if [ -f "app/[locale]/nutrition/page.tsx" ]; then
+  echo "Updating nutrition page imports"
+  sed -i 's|@/lib/cms|../../../lib/cms|g' app/[locale]/nutrition/page.tsx
+  sed -i 's|@/lib/utils|../../../lib/utils|g' app/[locale]/nutrition/page.tsx
+  sed -i 's|@/types|../../../types|g' app/[locale]/nutrition/page.tsx
+fi
+
+# Update sleep page
+if [ -f "app/[locale]/sleep/page.tsx" ]; then
+  echo "Updating sleep page imports"
+  sed -i 's|@/lib/cms|../../../lib/cms|g' app/[locale]/sleep/page.tsx
+  sed -i 's|@/lib/utils|../../../lib/utils|g' app/[locale]/sleep/page.tsx
+  sed -i 's|@/types|../../../types|g' app/[locale]/sleep/page.tsx
+fi
+
+# Update supplements page
+if [ -f "app/[locale]/supplements/page.tsx" ]; then
+  echo "Updating supplements page imports"
+  sed -i 's|@/lib/cms|../../../lib/cms|g' app/[locale]/supplements/page.tsx
+  sed -i 's|@/lib/utils|../../../lib/utils|g' app/[locale]/supplements/page.tsx
+  sed -i 's|@/types|../../../types|g' app/[locale]/supplements/page.tsx
+fi
+
+# Find and update all other files with @/ imports
+echo "Finding and updating all other files with @/ imports"
+find app -type f -name "*.tsx" -o -name "*.ts" | xargs grep -l "@/" | while read file; do
+  echo "Checking file: $file"
+
+  # Get the relative path to the app directory
+  rel_path=$(dirname "$file" | sed 's|app/||' | sed 's|[^/]||g' | sed 's|/|../|g')
+  if [ -z "$rel_path" ]; then
+    rel_path="./"
+  fi
+
+  echo "Relative path for $file: $rel_path"
+
+  # Update imports
+  sed -i "s|@/lib/cms|${rel_path}lib/cms|g" "$file"
+  sed -i "s|@/lib/utils|${rel_path}lib/utils|g" "$file"
+  sed -i "s|@/types|${rel_path}types|g" "$file"
+  sed -i "s|@/components|${rel_path}components|g" "$file"
+done
 
 # Create ShareButtons component
 echo "Creating ShareButtons component"
