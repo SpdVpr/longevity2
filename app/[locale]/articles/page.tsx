@@ -5,9 +5,10 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
-import { getArticles, getCategories } from '@/lib/cms';
-import { formatDate } from '@/lib/utils';
-import { Article, Category } from '@/types';
+// Using relative imports instead of path aliases
+import { getArticles, getCategories } from '../../../lib/cms';
+import { formatDate } from '../../../lib/utils';
+import { Article, Category } from '../../../types';
 
 export default function ArticlesPage() {
   const params = useParams();

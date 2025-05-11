@@ -7,13 +7,15 @@ import { useTranslations } from 'next-intl';
 import { useState, useEffect } from 'react';
 
 // Import components
-import Breadcrumbs from '@/components/Breadcrumbs';
-import ShareButtons from '@/components/ShareButtons';
+// Using relative imports instead of path aliases
+import Breadcrumbs from '../../../components/Breadcrumbs';
+import ShareButtons from '../../../components/ShareButtons';
 
 // Import CMS services
-import { getArticle, getRelated } from '@/lib/cms';
-import { getStrapiMedia, formatDate } from '@/lib/utils';
-import { Article } from '@/types';
+// Using relative imports instead of path aliases
+import { getArticle, getRelated } from '../../../../lib/cms';
+import { formatDate } from '../../../../lib/utils';
+import { Article } from '../../../../types';
 
 // Temporary mock data until CMS is fully set up
 const articles = {
