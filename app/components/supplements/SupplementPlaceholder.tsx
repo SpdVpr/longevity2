@@ -1,6 +1,6 @@
 'use client';
 
-import { Supplement } from '@/data/supplements';
+import { Supplement } from '../../types';
 
 interface SupplementPlaceholderProps {
   supplement: Supplement;
@@ -13,16 +13,16 @@ export default function SupplementPlaceholder({ supplement }: SupplementPlacehol
     for (let i = 0; i < name.length; i++) {
       hash = name.charCodeAt(i) + ((hash << 5) - hash);
     }
-    
+
     // Generate hue in the teal/turquoise range (160-190)
     const h = 160 + (Math.abs(hash) % 30);
     return `hsl(${h}, 70%, 45%)`;
   };
 
   const backgroundColor = getColorFromName(supplement.name);
-  
+
   return (
-    <div 
+    <div
       className="relative w-full h-full flex items-center justify-center"
       style={{ backgroundColor }}
     >

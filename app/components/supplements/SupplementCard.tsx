@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Supplement } from '@/data/supplements';
+import { Supplement } from '../../types';
 import SupplementPlaceholder from './SupplementPlaceholder';
 
 interface SupplementCardProps {
