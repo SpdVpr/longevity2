@@ -8,8 +8,8 @@ import { useParams } from 'next/navigation';
 import { getArticlesByCategory } from '@/lib/cms';
 import { formatDate } from '@/lib/utils';
 import { Article, Pagination } from '@/types';
-import { topSupplements } from '../../../data/supplements';
-import TopSupplementsList from '../../../components/supplements/TopSupplementsList';
+import { topSupplements } from '../../../app/data/supplements';
+import TopSupplementsList from '../../../app/components/supplements/TopSupplementsList';
 
 export default function SupplementsPage() {
   const params = useParams();

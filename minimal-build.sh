@@ -31,8 +31,12 @@ echo "Keeping Tailwind CSS references"
 # Create necessary components directly in the app directory
 echo "Creating necessary components in app directory"
 
-# Create app/components directory
-mkdir -p app/components
+# Create all required directories
+mkdir -p app/app/components
+mkdir -p app/app/components/supplements
+mkdir -p app/app/lib
+mkdir -p app/app/data
+mkdir -p app/app/types
 
 # Create Breadcrumbs component
 echo "Creating Breadcrumbs component"
@@ -142,6 +146,11 @@ export async function search(query: string, page: number = 1, pageSize: number =
     }
   };
 }
+
+export async function getFeatured(limit: number = 3, locale: string = 'en'): Promise<Article[]> {
+  // This is a minimal implementation for build
+  return [];
+}
 EOL
 
 # Create minimal utils.ts file
@@ -231,7 +240,7 @@ cat > app/app/components/supplements/TopSupplementsList.tsx << 'EOL'
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { topSupplements } from '../../data/supplements';
+import { topSupplements } from '../../app/data/supplements';
 
 export default function TopSupplementsList() {
   const [activeTab, setActiveTab] = useState('all');

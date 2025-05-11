@@ -4,8 +4,8 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import CaloricNeedsCalculator from '../../../../components/CaloricNeedsCalculator';
-import Breadcrumbs from '../../../../components/Breadcrumbs';
+import CaloricNeedsCalculator from '../../../../app/components/CaloricNeedsCalculator';
+import Breadcrumbs from '../../../../app/components/Breadcrumbs';
 
 export default function CaloricNeedsPage() {
   const params = useParams();

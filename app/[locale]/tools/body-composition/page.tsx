@@ -4,8 +4,8 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import BodyCompositionCalculator from '../../../../components/BodyCompositionCalculator';
-import Breadcrumbs from '../../../../components/Breadcrumbs';
+import BodyCompositionCalculator from '../../../../app/components/BodyCompositionCalculator';
+import Breadcrumbs from '../../../../app/components/Breadcrumbs';
 
 export default function BodyCompositionPage() {
   const params = useParams();

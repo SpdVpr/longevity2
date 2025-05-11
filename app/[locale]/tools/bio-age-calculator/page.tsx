@@ -4,8 +4,8 @@ import { useParams } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
-import BioAgeCalculator from '../../../../components/BioAgeCalculator';
-import Breadcrumbs from '../../../../components/Breadcrumbs';
+import BioAgeCalculator from '../../../../app/components/BioAgeCalculator';
+import Breadcrumbs from '../../../../app/components/Breadcrumbs';
 
 export default function BioAgeCalculatorPage() {
   const params = useParams();
