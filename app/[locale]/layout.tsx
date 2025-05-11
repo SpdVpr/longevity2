@@ -18,7 +18,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PreviewBanner from '../components/PreviewBanner';
 import { Providers } from '../providers';
-import { locales, defaultLocale } from '../../i18n';
+import { locales, defaultLocale } from '../../next-intl.config.mjs';
 
 type Props = {
   children: React.ReactNode;
@@ -40,12 +40,12 @@ export default async function LocaleLayout({ children, params: { locale } }: Pro
   // Validate that the incoming locale is valid
   const isValidLocale = locales.some(l => l === locale);
   const validLocale = isValidLocale ? locale : defaultLocale;
-  
+
   // Load messages
   let messages;
   try {
     messages = (await import(`../../messages/${validLocale}/index.json`)).default;
-    
+
     try {
       const researchMessages = (await import(`../../messages/${validLocale}/research.json`)).default;
       messages = { ...messages, research: researchMessages };
