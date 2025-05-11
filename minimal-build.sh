@@ -23,9 +23,8 @@ npx prisma generate
 echo "Installed packages:"
 npm list @prisma/client @auth/prisma-adapter next-auth react-icons
 
-# Úprava souborů pro odstranění Tailwind CSS
-echo "Removing Tailwind CSS references"
-find app -name "*.tsx" -o -name "*.ts" | xargs grep -l "tailwind" | xargs sed -i 's/import.*tailwind.*//g'
+# We're now including Tailwind CSS in the dependencies
+echo "Keeping Tailwind CSS references"
 
 # Build Next.js aplikace
 echo "Building Next.js application"
