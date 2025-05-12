@@ -17,8 +17,15 @@ export default async function LocaleLayout({
 
   let messages;
   try {
-    messages = (await import(`../../../messages/${locale}.json`)).default;
+    // First try to load from the root locale file
+    try {
+      messages = (await import(`../../../messages/${locale}.json`)).default;
+    } catch (rootError) {
+      // Then try to load from the locale directory
+      messages = (await import(`../../../messages/${locale}/index.json`)).default;
+    }
   } catch (error) {
+    console.error(`Failed to load messages for locale ${locale}:`, error);
     notFound();
   }
 

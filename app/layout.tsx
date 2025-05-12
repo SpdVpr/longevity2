@@ -32,21 +32,39 @@ export default async function RootLayout({
 }) {
   let messages;
   try {
-    // Load all message files for the locale
-    const indexMessages = (await import(`../../messages/${locale}/index.json`)).default;
-    const aboutMessages = (await import(`../../messages/${locale}/about.json`)).default;
-    const toolsMessages = (await import(`../../messages/${locale}/tools.json`)).default;
-    const dashboardMessages = (await import(`../../messages/${locale}/dashboard.json`)).default;
-    const mentalHealthMessages = (await import(`../../messages/${locale}/mental-health.json`)).default;
-    
-    messages = {
-      ...indexMessages,
-      about: aboutMessages,
-      tools: toolsMessages,
-      dashboard: dashboardMessages,
-      mentalHealth: mentalHealthMessages
-    };
+    // First try to load from the root locale file
+    try {
+      messages = (await import(`../../messages/${locale}.json`)).default;
+    } catch (rootError) {
+      // Then try to load from the locale directory
+      try {
+        // Load index messages
+        const indexMessages = (await import(`../../messages/${locale}/index.json`)).default;
+        messages = { ...indexMessages };
+
+        // Try to load additional message files
+        const messageFiles = [
+          'about', 'tools', 'dashboard', 'mental-health', 'articles',
+          'biomarkers', 'common', 'contact', 'nutrition', 'research',
+          'search', 'supplements'
+        ];
+
+        for (const file of messageFiles) {
+          try {
+            const fileMessages = (await import(`../../messages/${locale}/${file}.json`)).default;
+            messages[file] = fileMessages;
+          } catch (fileError) {
+            console.log(`Optional message file ${file} not found for locale ${locale}`);
+          }
+        }
+      } catch (dirError) {
+        console.error(`Failed to load messages for locale ${locale}:`, dirError);
+        // Fallback to English
+        messages = (await import(`../../messages/en.json`)).default;
+      }
+    }
   } catch (e) {
+    console.error(`Failed to load any messages:`, e);
     notFound();
   }
 

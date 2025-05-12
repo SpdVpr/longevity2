@@ -50,8 +50,8 @@ export default async function middleware(request) {
 export const config = {
   // Skip all paths that should not be internationalized or authenticated
   matcher: [
-    // Internationalization paths
-    '/((?!_next|favicon.ico|images|fonts|public).*)',
+    // Internationalization paths - exclude static assets and API routes
+    '/((?!api|_next|favicon.ico|images|fonts|public|static).*)',
     // Auth paths
     '/dashboard/:path*',
     '/auth/:path*'
