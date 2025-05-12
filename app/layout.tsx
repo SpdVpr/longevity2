@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { NextIntlClientProvider } from 'next-intl';
-import { notFound } from 'next/navigation';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,50 +22,81 @@ export function generateStaticParams() {
   return [{ locale: 'en' }, { locale: 'cs' }];
 }
 
-export default async function RootLayout({
+// Define hardcoded messages for each locale
+const messagesMap = {
+  en: {
+    app: {
+      title: "Longevity Hub",
+      description: "Science-backed strategies for longevity"
+    },
+    navigation: {
+      home: "Home",
+      about: "About",
+      contact: "Contact",
+      articles: "Articles",
+      categories: "Categories",
+      tools: "Tools",
+      dashboard: "Dashboard",
+      profile: "Profile",
+      signIn: "Sign In",
+      signUp: "Sign Up",
+      signOut: "Sign Out"
+    },
+    common: {
+      readMore: "Read More",
+      viewAll: "View All",
+      loading: "Loading...",
+      error: "An error occurred",
+      search: "Search",
+      notFound: "Not Found",
+      back: "Back"
+    }
+  },
+  cs: {
+    app: {
+      title: "Longevity Hub",
+      description: "Vědecky podložené strategie pro dlouhověkost"
+    },
+    navigation: {
+      home: "Domů",
+      about: "O nás",
+      contact: "Kontakt",
+      articles: "Články",
+      categories: "Kategorie",
+      tools: "Nástroje",
+      dashboard: "Nástěnka",
+      profile: "Profil",
+      signIn: "Přihlásit se",
+      signUp: "Registrovat se",
+      signOut: "Odhlásit se"
+    },
+    common: {
+      readMore: "Číst více",
+      viewAll: "Zobrazit vše",
+      loading: "Načítání...",
+      error: "Došlo k chybě",
+      search: "Hledat",
+      notFound: "Nenalezeno",
+      back: "Zpět"
+    }
+  }
+};
+
+export default function RootLayout({
   children,
   params: { locale }
 }: {
   children: React.ReactNode;
   params: { locale: string };
 }) {
-  let messages;
-  try {
-    // First try to load from the root locale file
-    try {
-      messages = (await import(`../../messages/${locale}.json`)).default;
-    } catch (rootError) {
-      // Then try to load from the locale directory
-      try {
-        // Load index messages
-        const indexMessages = (await import(`../../messages/${locale}/index.json`)).default;
-        messages = { ...indexMessages };
-
-        // Try to load additional message files
-        const messageFiles = [
-          'about', 'tools', 'dashboard', 'mental-health', 'articles',
-          'biomarkers', 'common', 'contact', 'nutrition', 'research',
-          'search', 'supplements'
-        ];
-
-        for (const file of messageFiles) {
-          try {
-            const fileMessages = (await import(`../../messages/${locale}/${file}.json`)).default;
-            messages[file] = fileMessages;
-          } catch (fileError) {
-            console.log(`Optional message file ${file} not found for locale ${locale}`);
-          }
-        }
-      } catch (dirError) {
-        console.error(`Failed to load messages for locale ${locale}:`, dirError);
-        // Fallback to English
-        messages = (await import(`../../messages/en.json`)).default;
-      }
-    }
-  } catch (e) {
-    console.error(`Failed to load any messages:`, e);
-    notFound();
+  // Validate locale
+  const validLocales = ['en', 'cs'];
+  if (!validLocales.includes(locale)) {
+    locale = 'en';
   }
+
+  // Get messages for the current locale
+  const messages = messagesMap[locale as keyof typeof messagesMap] || messagesMap.en;
 
   return (
     <html lang={locale}>

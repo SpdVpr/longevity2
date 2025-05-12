@@ -10,57 +10,68 @@ export const {Link, redirect, usePathname, useRouter} = createSharedPathnamesNav
   localePrefix: 'always'
 });
 
-// Export a function to get messages
-export async function getMessages(locale) {
-  try {
-    // First try to load from the root locale file
-    try {
-      return (await import(`../messages/${locale}.json`)).default;
-    } catch (rootError) {
-      console.log('Root locale file not found, trying directory structure');
+// Define hardcoded messages for each locale
+const messagesMap = {
+  en: {
+    app: {
+      title: "Longevity Hub",
+      description: "Science-backed strategies for longevity"
+    },
+    navigation: {
+      home: "Home",
+      about: "About",
+      contact: "Contact",
+      articles: "Articles",
+      categories: "Categories",
+      tools: "Tools",
+      dashboard: "Dashboard",
+      profile: "Profile",
+      signIn: "Sign In",
+      signUp: "Sign Up",
+      signOut: "Sign Out"
+    },
+    common: {
+      readMore: "Read More",
+      viewAll: "View All",
+      loading: "Loading...",
+      error: "An error occurred",
+      search: "Search",
+      notFound: "Not Found",
+      back: "Back"
     }
-
-    // Then try to load index messages from the directory structure
-    const indexMessages = await import(`../messages/${locale}/index.json`);
-
-    // Initialize result with index messages
-    const result = { ...indexMessages.default };
-
-    // Try to load each additional message file individually
-    const messageFiles = [
-      'about', 'articles', 'biomarkers', 'common', 'contact',
-      'dashboard', 'mental-health', 'nutrition', 'research',
-      'search', 'supplements', 'tools'
-    ];
-
-    for (const file of messageFiles) {
-      try {
-        const messages = await import(`../messages/${locale}/${file}.json`);
-        result[file] = messages.default;
-      } catch (error) {
-        console.log(`Optional message file ${file} not found for locale ${locale}`);
-      }
-    }
-
-    return result;
-  } catch (error) {
-    console.error(`Error loading messages for locale ${locale}:`, error);
-
-    // Fallback to English
-    try {
-      // First try root English file
-      try {
-        return (await import(`../messages/${defaultLocale}.json`)).default;
-      } catch (rootError) {
-        console.log('Root English file not found, trying directory structure');
-      }
-
-      // Then try English directory structure
-      const indexMessages = await import(`../messages/${defaultLocale}/index.json`);
-      return { ...indexMessages.default };
-    } catch (fallbackError) {
-      console.error('Could not load any messages:', fallbackError);
-      return {}; // Return empty object instead of notFound to prevent crashes
+  },
+  cs: {
+    app: {
+      title: "Longevity Hub",
+      description: "Vědecky podložené strategie pro dlouhověkost"
+    },
+    navigation: {
+      home: "Domů",
+      about: "O nás",
+      contact: "Kontakt",
+      articles: "Články",
+      categories: "Kategorie",
+      tools: "Nástroje",
+      dashboard: "Nástěnka",
+      profile: "Profil",
+      signIn: "Přihlásit se",
+      signUp: "Registrovat se",
+      signOut: "Odhlásit se"
+    },
+    common: {
+      readMore: "Číst více",
+      viewAll: "Zobrazit vše",
+      loading: "Načítání...",
+      error: "Došlo k chybě",
+      search: "Hledat",
+      notFound: "Nenalezeno",
+      back: "Zpět"
     }
   }
+};
+
+// Export a function to get messages
+export function getMessages(locale) {
+  // Get messages for the current locale
+  return messagesMap[locale] || messagesMap[defaultLocale];
 }
