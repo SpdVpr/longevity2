@@ -1,8 +1,10 @@
 import {createSharedPathnamesNavigation} from 'next-intl/navigation';
+// Import directly from the main config file
+import config from '../next-intl.config.mjs';
 
-// Define the locales and default locale
-export const locales = ['en', 'cs'];
-export const defaultLocale = 'en';
+// Use the locales and defaultLocale from the config
+export const locales = config.locales;
+export const defaultLocale = config.defaultLocale;
 
 // Create the navigation functions
 export const {Link, redirect, usePathname, useRouter} = createSharedPathnamesNavigation({

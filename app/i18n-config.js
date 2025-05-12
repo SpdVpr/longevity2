@@ -1,5 +1,6 @@
 // This file is used by next-intl in the App Router
-const { locales, defaultLocale } = require('../i18n');
+// Import directly from the main config file
+const { locales, defaultLocale } = require('../next-intl.config.mjs');
 
 module.exports = {
   locales,

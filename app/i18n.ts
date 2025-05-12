@@ -1,7 +1,10 @@
 import {notFound} from 'next/navigation';
 import {getRequestConfig} from 'next-intl/server';
-import {locales, defaultLocale} from './i18n-config';
-import type {Locale} from './i18n-config';
+// Import directly from the main config file
+import config from '../../next-intl.config.mjs';
+
+// Define types
+export type Locale = (typeof config.locales)[number];
 
 // Define hardcoded messages for each locale
 const messagesMap = {
@@ -65,7 +68,7 @@ const messagesMap = {
 
 export default getRequestConfig(async ({locale}) => {
   // Validate the locale
-  if (!locales.includes(locale as Locale)) notFound();
+  if (!config.locales.includes(locale as any)) notFound();
 
   // Get messages for the current locale
   const messages = messagesMap[locale as keyof typeof messagesMap] || messagesMap.en;
@@ -76,5 +79,3 @@ export default getRequestConfig(async ({locale}) => {
     timeZone: 'Europe/Prague'
   };
 });
-
-export {locales, defaultLocale};
