@@ -18,7 +18,7 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 import PreviewBanner from '../components/PreviewBanner';
 import { Providers } from '../providers';
-import { locales, defaultLocale } from '../../next-intl.config.js';
+import { locales, defaultLocale, getMessages } from '../i18n';
 
 export function generateStaticParams() {
   return locales.map(locale => ({ locale }));
@@ -35,36 +35,9 @@ export default async function LocaleLayout({ children, params: { locale } }) {
   // Validate that the incoming locale is valid
   const isValidLocale = locales.some(l => l === locale);
   const validLocale = isValidLocale ? locale : defaultLocale;
-  
-  // Load messages
-  let messages;
-  try {
-    messages = (await import(`../../messages/${validLocale}/index.json`)).default;
-    
-    try {
-      const researchMessages = (await import(`../../messages/${validLocale}/research.json`)).default;
-      messages = { ...messages, research: researchMessages };
-    } catch (error) {
-      // Fallback to English for research messages if needed
-      if (validLocale !== defaultLocale) {
-        try {
-          const researchMessages = (await import(`../../messages/${defaultLocale}/research.json`)).default;
-          messages = { ...messages, research: researchMessages };
-        } catch (innerError) {
-          console.error('Could not load research messages:', innerError);
-        }
-      }
-    }
-  } catch (error) {
-    // Fallback to English
-    messages = (await import(`../../messages/${defaultLocale}/index.json`)).default;
-    try {
-      const researchMessages = (await import(`../../messages/${defaultLocale}/research.json`)).default;
-      messages = { ...messages, research: researchMessages };
-    } catch (innerError) {
-      console.error('Could not load English research messages:', innerError);
-    }
-  }
+
+  // Load messages using the helper function
+  const messages = await getMessages(validLocale);
 
   // Preview mode is disabled for now
   const isPreview = false;

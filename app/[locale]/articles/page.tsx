@@ -14,6 +14,7 @@ export default function ArticlesPage() {
   const params = useParams();
   const searchParams = useSearchParams();
   const locale = params.locale as string;
+  const t = useTranslations('articles');
 
   const categoryFilter = searchParams.get('category') || 'all';
   const sortBy = searchParams.get('sort') || 'latest';
@@ -110,10 +111,10 @@ export default function ArticlesPage() {
       <div className="bg-gradient-to-r from-blue-600 to-indigo-700 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h1 className="text-4xl md:text-5xl font-bold mb-4">
-            All Articles
+            {t('title')}
           </h1>
           <p className="text-xl md:text-2xl mb-0 max-w-3xl mx-auto">
-            Explore our collection of evidence-based articles on longevity and healthy aging
+            {t('description')}
           </p>
         </div>
       </div>
@@ -188,7 +189,7 @@ export default function ArticlesPage() {
             </div>
           ) : error ? (
             <div className="bg-white p-8 rounded-lg text-center">
-              <h2 className="text-2xl font-bold mb-2">No articles found</h2>
+              <h2 className="text-2xl font-bold mb-2">{t('noArticles')}</h2>
               <p className="text-gray-600 mb-4">
                 {error}
               </p>
@@ -201,9 +202,9 @@ export default function ArticlesPage() {
             </div>
           ) : filteredAndSortedArticles.length === 0 ? (
             <div className="bg-white p-8 rounded-lg text-center">
-              <h2 className="text-2xl font-bold mb-2">No articles found</h2>
+              <h2 className="text-2xl font-bold mb-2">{t('noArticles')}</h2>
               <p className="text-gray-600 mb-4">
-                We couldn't find any articles matching your criteria.
+                {t('noMatchingArticles')}
               </p>
               <Link
                 href={`/${locale}/articles`}
@@ -216,7 +217,11 @@ export default function ArticlesPage() {
             <>
               <div className="mb-8">
                 <p className="text-gray-600">
-                  Showing {indexOfFirstArticle + 1}-{Math.min(indexOfLastArticle, filteredAndSortedArticles.length)} of {filteredAndSortedArticles.length} articles
+                  {t('showingArticles', {
+                    start: indexOfFirstArticle + 1,
+                    end: Math.min(indexOfLastArticle, filteredAndSortedArticles.length),
+                    total: filteredAndSortedArticles.length
+                  })}
                 </p>
               </div>
 
@@ -259,7 +264,7 @@ export default function ArticlesPage() {
                       disabled={currentPage === 1}
                       className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Previous
+                      {t('pagination.previous')}
                     </button>
 
                     {Array.from({ length: totalPages }, (_, i) => i + 1).map(number => {
@@ -296,7 +301,7 @@ export default function ArticlesPage() {
                       disabled={currentPage === totalPages}
                       className="px-4 py-2 rounded-lg border border-gray-300 bg-white text-gray-700 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Next
+                      {t('pagination.next')}
                     </button>
                   </div>
                 </div>

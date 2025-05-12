@@ -1,0 +1,53 @@
+{
+  "title": "Kvíz o dlouhověkosti",
+  "description": "Otestujte své znalosti o vědě dlouhověkosti a zdravém stárnutí",
+  "start": "Začít kvíz",
+  "next": "Další otázka",
+  "previous": "Předchozí otázka",
+  "submit": "Odeslat odpovědi",
+  "restart": "Restartovat kvíz",
+  "questionCount": "Otázka {current} z {total}",
+  "results": {
+    "title": "Vaše výsledky",
+    "score": "Získali jste {score} z {total} bodů",
+    "levels": {
+      "beginner": {
+        "title": "Začátečník v dlouhověkosti",
+        "description": "Teprve začínáte svou cestu k dlouhověkosti. Prozkoumejte naše články a dozvíte se více o vědě zdravého stárnutí."
+      },
+      "intermediate": {
+        "title": "Nadšenec dlouhověkosti",
+        "description": "Máte dobré porozumění principům dlouhověkosti. Pokračujte ve vzdělávání a prohlubujte své znalosti."
+      },
+      "advanced": {
+        "title": "Expert na dlouhověkost",
+        "description": "Působivé! Máte vynikající znalosti vědy o dlouhověkosti. Zvažte prozkoumání naší sekce pokročilého výzkumu."
+      }
+    },
+    "recommendedArticles": "Doporučené články na základě vašich výsledků"
+  },
+  "questions": {
+    "q1": {
+      "text": "Která z následujících možností NENÍ považována za jeden ze znaků stárnutí?",
+      "options": {
+        "a": "Genomická nestabilita",
+        "b": "Zkracování telomer",
+        "c": "Mitochondriální dysfunkce",
+        "d": "Zvýšená syntéza proteinů"
+      },
+      "correctAnswer": "d",
+      "explanation": "Zvýšená syntéza proteinů není znakem stárnutí. Ve skutečnosti je pečlivě regulovaná syntéza proteinů a autofagie (buněčný úklid) spojena s dlouhověkostí."
+    },
+    "q2": {
+      "text": "Který stravovací vzor má nejsilnější důkazy pro podporu dlouhověkosti?",
+      "options": {
+        "a": "Ketogenní dieta",
+        "b": "Středomořská strava",
+        "c": "Masožravá dieta",
+        "d": "Standardní americká strava"
+      },
+      "correctAnswer": "b",
+      "explanation": "Středomořská strava má nejsilnější důkazní základnu pro podporu dlouhověkosti, s mnoha dlouhodobými studiemi ukazujícími sníženou úmrtnost a nemoci související s věkem."
+    }
+  }
+}

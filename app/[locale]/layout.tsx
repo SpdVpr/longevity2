@@ -1,90 +1,33 @@
 import { NextIntlClientProvider } from 'next-intl';
-import { Geist, Geist_Mono } from "next/font/google";
-import "../globals.css";
-
-// Initialize fonts
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-// Import components
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import PreviewBanner from '../components/PreviewBanner';
-import { Providers } from '../providers';
-import {locales, defaultLocale} from '../i18n/config';
+import { notFound } from 'next/navigation';
+import { ReactNode } from 'react';
 
 type Props = {
-  children: React.ReactNode;
+  children: ReactNode;
   params: { locale: string };
 };
 
-export function generateStaticParams() {
-  return locales.map(locale => ({ locale }));
-}
+const locales = ['en', 'cs'];
 
-export async function generateMetadata({ params: { locale } }: Props) {
-  return {
-    title: 'Longevity Hub',
-    description: 'Science-backed strategies for longevity and healthspan',
-  };
-}
+export default async function LocaleLayout({
+  children,
+  params: { locale }
+}: Props) {
+  if (!locales.includes(locale as any)) notFound();
 
-export default async function LocaleLayout({ children, params: { locale } }: Props) {
-  // Validate that the incoming locale is valid
-  const isValidLocale = locales.some(l => l === locale);
-  const validLocale = isValidLocale ? locale : defaultLocale;
-
-  // Load messages
   let messages;
   try {
-    messages = (await import(`../../messages/${validLocale}/index.json`)).default;
-
-    try {
-      const researchMessages = (await import(`../../messages/${validLocale}/research.json`)).default;
-      messages = { ...messages, research: researchMessages };
-    } catch (error) {
-      // Fallback to English for research messages if needed
-      if (validLocale !== defaultLocale) {
-        try {
-          const researchMessages = (await import(`../../messages/${defaultLocale}/research.json`)).default;
-          messages = { ...messages, research: researchMessages };
-        } catch (innerError) {
-          console.error('Could not load research messages:', innerError);
-        }
-      }
-    }
+    messages = (await import(`../../../messages/${locale}.json`)).default;
   } catch (error) {
-    // Fallback to English
-    messages = (await import(`../../messages/${defaultLocale}/index.json`)).default;
-    try {
-      const researchMessages = (await import(`../../messages/${defaultLocale}/research.json`)).default;
-      messages = { ...messages, research: researchMessages };
-    } catch (innerError) {
-      console.error('Could not load English research messages:', innerError);
-    }
+    notFound();
   }
 
-  // Preview mode is disabled for now
-  const isPreview = false;
-
   return (
-    <html lang={validLocale}>
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <Providers>
-          <NextIntlClientProvider locale={validLocale} messages={messages}>
-            <PreviewBanner isPreview={isPreview} />
-            <Header />
-            <main>{children}</main>
-            <Footer />
-          </NextIntlClientProvider>
-        </Providers>
+    <html lang={locale}>
+      <body>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          {children}
+        </NextIntlClientProvider>
       </body>
     </html>
   );

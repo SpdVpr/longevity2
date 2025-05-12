@@ -1,0 +1,11 @@
+{
+  "title": "Nástěnka",
+  "description": "Vaše osobní nástěnka zdraví a dlouhověkosti",
+  "sections": {
+    "profile": "Profil",
+    "bioageHistory": "Historie biologického věku",
+    "caloricNeeds": "Kalorické potřeby",
+    "workoutPlans": "Tréninkové plány"
+  },
+  "welcome": "Vítejte zpět, {name}!"
+}

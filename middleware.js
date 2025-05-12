@@ -1,17 +1,20 @@
 import createMiddleware from 'next-intl/middleware';
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
-import { locales, defaultLocale } from './app/i18n-config';
+
+// Import next-intl config
+import { locales, defaultLocale } from './app/i18n';
 
 // Create the next-intl middleware
 const intlMiddleware = createMiddleware({
+  // Use the config from app/i18n.js
   locales,
   defaultLocale,
   localePrefix: 'always'
 });
 
 // Export a custom middleware function
-export default async function middleware(request: NextRequest) {
+export default async function middleware(request) {
   // Special handling for API routes
   if (request.nextUrl.pathname.startsWith('/api/')) {
     return NextResponse.next();
@@ -30,7 +33,7 @@ export default async function middleware(request: NextRequest) {
     if (!token) {
       // Get the locale from the URL
       const segments = request.nextUrl.pathname.split('/');
-      const locale = segments[1] || 'en';
+      const locale = segments[1] || defaultLocale;
 
       // Create the sign-in URL with the current URL as the callbackUrl
       const signInUrl = new URL(`/${locale}/auth/signin`, request.url);
@@ -44,7 +47,7 @@ export default async function middleware(request: NextRequest) {
   return intlMiddleware(request);
 }
 
-export const routeConfig = {
+export const config = {
   // Skip all paths that should not be internationalized or authenticated
   matcher: [
     // Internationalization paths

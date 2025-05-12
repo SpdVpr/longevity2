@@ -1,0 +1,51 @@
+{
+  "title": "Chytrá kalkulačka biologického věku",
+  "description": "Vypočítejte svůj biologický věk na základě životního stylu a biomarkerů",
+  "form": {
+    "personalInfo": {
+      "title": "Osobní informace",
+      "age": "Chronologický věk",
+      "gender": "Pohlaví",
+      "height": "Výška (cm)",
+      "weight": "Váha (kg)"
+    },
+    "lifestyle": {
+      "title": "Faktory životního stylu",
+      "sleep": "Průměrná délka spánku (hodin)",
+      "exercise": "Týdenní cvičení (hodin)",
+      "diet": "Kvalita stravy",
+      "stress": "Úroveň stresu",
+      "smoking": "Kouření"
+    },
+    "biomarkers": {
+      "title": "Biomarkery (pokud jsou k dispozici)",
+      "bloodPressure": "Krevní tlak (mmHg)",
+      "glucose": "Glukóza nalačno (mg/dL)",
+      "cholesterol": "Celkový cholesterol (mg/dL)",
+      "hdl": "HDL cholesterol (mg/dL)",
+      "crp": "C-reaktivní protein (mg/L)"
+    },
+    "submit": "Vypočítat biologický věk"
+  },
+  "results": {
+    "title": "Vaše výsledky",
+    "bioAge": "Váš odhadovaný biologický věk",
+    "chronologicalAge": "Váš chronologický věk",
+    "difference": "Rozdíl",
+    "interpretation": {
+      "younger": "Váš biologický věk je nižší než váš chronologický věk, což naznačuje, že vaše tělo stárne pomaleji než průměr.",
+      "same": "Váš biologický věk odpovídá vašemu chronologickému věku, což naznačuje, že vaše tělo stárne průměrnou rychlostí.",
+      "older": "Váš biologický věk je vyšší než váš chronologický věk, což naznačuje, že vaše tělo stárne rychleji než průměr."
+    },
+    "recommendations": {
+      "title": "Doporučení pro zlepšení vašeho biologického věku",
+      "sleep": "Optimalizujte délku a kvalitu spánku",
+      "exercise": "Zvyšte úroveň fyzické aktivity",
+      "diet": "Zlepšete kvalitu stravy s více celými potravinami",
+      "stress": "Implementujte techniky zvládání stresu",
+      "smoking": "Zvažte zdroje pro odvykání kouření"
+    },
+    "saveResults": "Uložit výsledky do vašeho profilu",
+    "disclaimer": "Tato kalkulačka poskytuje odhad na základě dostupných informací. Pro přesnější hodnocení se poraďte se zdravotnickým odborníkem."
+  }
+}

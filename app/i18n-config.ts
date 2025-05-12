@@ -3,37 +3,9 @@ export const defaultLocale = 'en' as const;
 
 export type Locale = (typeof locales)[number];
 
-// Define path mapping for localized routes
-export const pathnames = {
-  '/': '/',
-  '/about': {
-    en: '/about',
-    cs: '/o-nas',
-  },
-  '/fitness': {
-    en: '/fitness',
-    cs: '/fitness',
-  },
-  '/nutrition': {
-    en: '/nutrition',
-    cs: '/vyziva',
-  },
-  '/mental-health': {
-    en: '/mental-health',
-    cs: '/dusevni-zdravi',
-  },
-  '/biomarkers': {
-    en: '/biomarkers',
-    cs: '/biomarkery',
-  },
-  '/supplements': {
-    en: '/supplements',
-    cs: '/doplnky',
-  },
-  '/contact': {
-    en: '/contact',
-    cs: '/kontakt',
-  },
-};
+export const localeNames = {
+  en: 'English',
+  cs: 'Čeština'
+} as const;
 
-export type AppPathnames = keyof typeof pathnames;
+export const localePrefix = 'always'; // Show locale prefix for all routes

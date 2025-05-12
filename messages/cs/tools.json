@@ -1,0 +1,16 @@
+{
+  "title": "Nástroje",
+  "description": "Interaktivní nástroje pro dlouhověkost a optimalizaci zdraví",
+  "healthyHabits": {
+    "title": "Kontrolní seznam zdravých návyků",
+    "description": "Sledujte své denní zdravé návyky"
+  },
+  "bioAgeCalculator": {
+    "title": "Kalkulačka biologického věku",
+    "description": "Vypočítejte si svůj biologický věk"
+  },
+  "workoutPlanner": {
+    "title": "Plánovač tréninků",
+    "description": "Vytvořte si personalizované tréninkové plány"
+  }
+}

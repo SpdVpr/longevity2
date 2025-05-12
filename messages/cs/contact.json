@@ -1,0 +1,19 @@
+{
+  "title": "Kontaktujte nás",
+  "description": "Spojte se s týmem Longevity Hub",
+  "form": {
+    "name": "Vaše jméno",
+    "email": "Váš e-mail",
+    "subject": "Předmět",
+    "message": "Zpráva",
+    "submit": "Odeslat zprávu"
+  },
+  "success": "Vaše zpráva byla úspěšně odeslána. Brzy se vám ozveme.",
+  "error": "Při odesílání vaší zprávy došlo k chybě. Zkuste to prosím znovu.",
+  "contactInfo": {
+    "title": "Kontaktní informace",
+    "email": "info@longevityhub.com",
+    "phone": "+1 (555) 123-4567",
+    "address": "123 Health Street, Wellness City, 10001"
+  }
+}

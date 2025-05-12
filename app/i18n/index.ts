@@ -1,52 +1,39 @@
 import {getRequestConfig} from 'next-intl/server';
-import {locales, defaultLocale} from './config';
+import {createSharedPathnamesNavigation} from 'next-intl/navigation';
 
-export default getRequestConfig(async ({locale}) => {
-  // Validate that the incoming locale is valid
-  if (!locales.includes(locale as any)) {
-    locale = defaultLocale;
-  }
+// Define the locales and default locale
+export const locales = ['en', 'cs'];
+export const defaultLocale = 'en';
 
-  // Ensure locale is always a string
-  const safeLocale = locale || defaultLocale;
+// Create the navigation functions
+export const {Link, redirect, usePathname, useRouter} = createSharedPathnamesNavigation({
+  locales,
+  localePrefix: 'always'
+});
 
+// Export a function to get messages
+export async function getMessages(locale: string) {
   try {
     // Load index messages
-    const indexMessages = await import(`../../messages/${safeLocale}/index.json`);
+    const indexMessages = await import(`../../messages/${locale}/index.json`);
 
     // Try to load research messages
     try {
-      const researchMessages = await import(`../../messages/${safeLocale}/research.json`);
+      const researchMessages = await import(`../../messages/${locale}/research.json`);
       // Merge all messages
-      return {
-        locale: safeLocale,
-        messages: { ...indexMessages.default, research: researchMessages.default },
-        timeZone: 'Europe/Prague'
-      };
+      return { ...indexMessages.default, research: researchMessages.default };
     } catch (error) {
       // Fallback to English if research messages for the locale are not found
-      if (safeLocale !== defaultLocale) {
+      if (locale !== defaultLocale) {
         try {
           const researchMessages = await import(`../../messages/${defaultLocale}/research.json`);
-          return {
-            locale: safeLocale,
-            messages: { ...indexMessages.default, research: researchMessages.default },
-            timeZone: 'Europe/Prague'
-          };
+          return { ...indexMessages.default, research: researchMessages.default };
         } catch (innerError) {
           console.error('Could not load research messages:', innerError);
-          return {
-            locale: safeLocale,
-            messages: { ...indexMessages.default },
-            timeZone: 'Europe/Prague'
-          };
+          return { ...indexMessages.default };
         }
       } else {
-        return {
-          locale: safeLocale,
-          messages: { ...indexMessages.default },
-          timeZone: 'Europe/Prague'
-        };
+        return { ...indexMessages.default };
       }
     }
   } catch (error) {
@@ -54,18 +41,10 @@ export default getRequestConfig(async ({locale}) => {
     const indexMessages = await import(`../../messages/${defaultLocale}/index.json`);
     try {
       const researchMessages = await import(`../../messages/${defaultLocale}/research.json`);
-      return {
-        locale: safeLocale,
-        messages: { ...indexMessages.default, research: researchMessages.default },
-        timeZone: 'Europe/Prague'
-      };
+      return { ...indexMessages.default, research: researchMessages.default };
     } catch (innerError) {
       console.error('Could not load English research messages:', innerError);
-      return {
-        locale: safeLocale,
-        messages: { ...indexMessages.default },
-        timeZone: 'Europe/Prague'
-      };
+      return { ...indexMessages.default };
     }
   }
-});
+}

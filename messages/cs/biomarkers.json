@@ -1,0 +1,8 @@
+{
+  "title": "Biomarkery & Sledování",
+  "description": "Měřte a sledujte svůj biologický věk a zdravotní metriky s přesností",
+  "latestArticles": "Nejnovější články",
+  "noArticles": "Nebyly nalezeny žádné články",
+  "checkStrapi": "Zkontrolujte nastavení Strapi CMS a zkuste to znovu",
+  "popularArticles": "Populární články"
+}

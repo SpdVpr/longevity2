@@ -1,0 +1,26 @@
+{
+  "ui": {
+    "buttons": {
+      "previous": "Předchozí",
+      "next": "Další",
+      "submit": "Odeslat",
+      "cancel": "Zrušit",
+      "readMore": "Číst více →",
+      "viewAll": "Zobrazit vše"
+    },
+    "filters": {
+      "category": "Kategorie:",
+      "sortBy": "Řadit podle:",
+      "all": "Vše"
+    },
+    "errors": {
+      "notFound": "Nenalezeno",
+      "loadingError": "Chyba při načítání dat",
+      "tryAgain": "Zkuste to prosím později"
+    },
+    "pagination": {
+      "showing": "Zobrazeno {start}-{end} z {total}",
+      "page": "Strana"
+    }
+  }
+}

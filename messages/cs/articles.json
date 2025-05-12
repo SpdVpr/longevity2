@@ -1,0 +1,11 @@
+{
+  "title": "Všechny články",
+  "description": "Prozkoumejte naši sbírku vědecky podložených článků o dlouhověkosti a zdravém stárnutí",
+  "noArticles": "Nebyly nalezeny žádné články",
+  "noMatchingArticles": "Nenašli jsme žádné články odpovídající vašim kritériím",
+  "showingArticles": "Zobrazeno {start}-{end} z {total} článků",
+  "pagination": {
+    "previous": "Předchozí",
+    "next": "Další"
+  }
+}

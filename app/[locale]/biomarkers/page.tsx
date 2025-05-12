@@ -12,6 +12,7 @@ import { Article, Pagination } from '@/types';
 export default function BiomarkersPage() {
   const params = useParams();
   const locale = params.locale as string;
+  const t = useTranslations('biomarkers');
 
   const [articles, setArticles] = useState<Article[]>([]);
   const [pagination, setPagination] = useState<Pagination>({
@@ -67,10 +68,10 @@ export default function BiomarkersPage() {
 
         <div className="container mx-auto px-4 text-center relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 text-shadow max-w-4xl mx-auto">
-            Biomarkers & Tracking
+            {t('title')}
           </h1>
           <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto text-shadow">
-            Measure and monitor your biological age and health metrics with precision
+            {t('description')}
           </p>
         </div>
       </div>
@@ -81,7 +82,7 @@ export default function BiomarkersPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="md:col-span-2">
-              <h2 className="text-3xl font-bold mb-8 text-gray-900">Latest Articles</h2>
+              <h2 className="text-3xl font-bold mb-8 text-gray-900">{t('latestArticles')}</h2>
 
               {isLoading ? (
                 <div className="flex justify-center items-center h-64">
@@ -89,10 +90,10 @@ export default function BiomarkersPage() {
                 </div>
               ) : error ? (
                 <div className="text-center py-8 bg-yellow-50 rounded-lg p-6">
-                  <h3 className="text-xl font-bold mb-4 text-yellow-800">No Articles Found</h3>
+                  <h3 className="text-xl font-bold mb-4 text-yellow-800">{t('noArticles')}</h3>
                   <p className="text-yellow-700 mb-4">{error}</p>
                   <p className="text-yellow-700">
-                    Please check your Strapi CMS setup and try again.
+                    {t('checkStrapi')}
                   </p>
                 </div>
               ) : (
@@ -128,7 +129,7 @@ export default function BiomarkersPage() {
             {/* Sidebar */}
             <div className="md:col-span-1">
               <div className="bg-gray-50 rounded-lg p-6 sticky top-8">
-                <h3 className="text-xl font-bold mb-4 text-gray-900">Popular Articles</h3>
+                <h3 className="text-xl font-bold mb-4 text-gray-900">{t('popularArticles')}</h3>
                 {isLoading ? (
                   <div className="flex justify-center items-center h-32">
                     <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500"></div>
