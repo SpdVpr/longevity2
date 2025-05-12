@@ -3,7 +3,7 @@ import { NextResponse } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
 // Import next-intl config
-import { locales, defaultLocale } from './app/i18n';
+const { locales, defaultLocale } = require('./next-intl.config.js');
 
 // Create the next-intl middleware
 const intlMiddleware = createMiddleware({

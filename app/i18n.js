@@ -1,5 +1,4 @@
 import {createSharedPathnamesNavigation} from 'next-intl/navigation';
-import {notFound} from 'next/navigation';
 
 // Define the locales and default locale
 export const locales = ['en', 'cs'];
@@ -14,50 +13,54 @@ export const {Link, redirect, usePathname, useRouter} = createSharedPathnamesNav
 // Export a function to get messages
 export async function getMessages(locale) {
   try {
-    // Load index messages
+    // First try to load from the root locale file
+    try {
+      return (await import(`../messages/${locale}.json`)).default;
+    } catch (rootError) {
+      console.log('Root locale file not found, trying directory structure');
+    }
+
+    // Then try to load index messages from the directory structure
     const indexMessages = await import(`../messages/${locale}/index.json`);
 
-    // Try to load other message files
-    try {
-      const aboutMessages = await import(`../messages/${locale}/about.json`);
-      const articlesMessages = await import(`../messages/${locale}/articles.json`);
-      const biomarkersMessages = await import(`../messages/${locale}/biomarkers.json`);
-      const commonMessages = await import(`../messages/${locale}/common.json`);
-      const contactMessages = await import(`../messages/${locale}/contact.json`);
-      const dashboardMessages = await import(`../messages/${locale}/dashboard.json`);
-      const nutritionMessages = await import(`../messages/${locale}/nutrition.json`);
-      const researchMessages = await import(`../messages/${locale}/research.json`);
-      const searchMessages = await import(`../messages/${locale}/search.json`);
-      const supplementsMessages = await import(`../messages/${locale}/supplements.json`);
-      const toolsMessages = await import(`../messages/${locale}/tools.json`);
+    // Initialize result with index messages
+    const result = { ...indexMessages.default };
 
-      // Merge all messages
-      return {
-        ...indexMessages.default,
-        about: aboutMessages.default,
-        articles: articlesMessages.default,
-        biomarkers: biomarkersMessages.default,
-        common: commonMessages.default,
-        contact: contactMessages.default,
-        dashboard: dashboardMessages.default,
-        nutrition: nutritionMessages.default,
-        research: researchMessages.default,
-        search: searchMessages.default,
-        supplements: supplementsMessages.default,
-        tools: toolsMessages.default
-      };
-    } catch (error) {
-      console.error('Error loading message files:', error);
-      return { ...indexMessages.default };
+    // Try to load each additional message file individually
+    const messageFiles = [
+      'about', 'articles', 'biomarkers', 'common', 'contact',
+      'dashboard', 'mental-health', 'nutrition', 'research',
+      'search', 'supplements', 'tools'
+    ];
+
+    for (const file of messageFiles) {
+      try {
+        const messages = await import(`../messages/${locale}/${file}.json`);
+        result[file] = messages.default;
+      } catch (error) {
+        console.log(`Optional message file ${file} not found for locale ${locale}`);
+      }
     }
+
+    return result;
   } catch (error) {
-    // Fallback to English if messages for the locale are not found
+    console.error(`Error loading messages for locale ${locale}:`, error);
+
+    // Fallback to English
     try {
+      // First try root English file
+      try {
+        return (await import(`../messages/${defaultLocale}.json`)).default;
+      } catch (rootError) {
+        console.log('Root English file not found, trying directory structure');
+      }
+
+      // Then try English directory structure
       const indexMessages = await import(`../messages/${defaultLocale}/index.json`);
       return { ...indexMessages.default };
-    } catch (innerError) {
-      console.error('Could not load any messages:', innerError);
-      notFound();
+    } catch (fallbackError) {
+      console.error('Could not load any messages:', fallbackError);
+      return {}; // Return empty object instead of notFound to prevent crashes
     }
   }
 }
